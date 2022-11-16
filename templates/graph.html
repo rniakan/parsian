@@ -1,0 +1,1073 @@
+{% extends 'article/base.html' %}
+{% load static %}
+{% block content %}
+<section class="b-green">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col">
+                    نمودار
+            </div>
+        </div>
+    </div>
+</section>
+<svg id="wave" style="transform:rotate(180deg); transition: 0.3s" viewBox="0 0 1440 100" version="1.1"
+xmlns="http://www.w3.org/2000/svg">
+<defs>
+   <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
+       <stop stop-color="rgba(127, 255, 0, 1)" offset="0%"></stop>
+       <stop stop-color="rgba(127, 255, 0, 1)" offset="100%"></stop>
+   </linearGradient>
+</defs>
+<path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)"
+     d="M0,30L80,38.3C160,47,320,63,480,60C640,57,800,33,960,25C1120,17,1280,23,1440,31.7C1600,40,1760,50,1920,51.7C2080,53,2240,47,2400,50C2560,53,2720,67,2880,61.7C3040,57,3200,33,3360,25C3520,17,3680,23,3840,30C4000,37,4160,43,4320,46.7C4480,50,4640,50,4800,55C4960,60,5120,70,5280,68.3C5440,67,5600,53,5760,53.3C5920,53,6080,67,6240,66.7C6400,67,6560,53,6720,55C6880,57,7040,73,7200,66.7C7360,60,7520,30,7680,28.3C7840,27,8000,53,8160,68.3C8320,83,8480,87,8640,88.3C8800,90,8960,90,9120,76.7C9280,63,9440,37,9600,25C9760,13,9920,17,10080,20C10240,23,10400,27,10560,25C10720,23,10880,17,11040,25C11200,33,11360,57,11440,68.3L11520,80L11520,100L11440,100C11360,100,11200,100,11040,100C10880,100,10720,100,10560,100C10400,100,10240,100,10080,100C9920,100,9760,100,9600,100C9440,100,9280,100,9120,100C8960,100,8800,100,8640,100C8480,100,8320,100,8160,100C8000,100,7840,100,7680,100C7520,100,7360,100,7200,100C7040,100,6880,100,6720,100C6560,100,6400,100,6240,100C6080,100,5920,100,5760,100C5600,100,5440,100,5280,100C5120,100,4960,100,4800,100C4640,100,4480,100,4320,100C4160,100,4000,100,3840,100C3680,100,3520,100,3360,100C3200,100,3040,100,2880,100C2720,100,2560,100,2400,100C2240,100,2080,100,1920,100C1760,100,1600,100,1440,100C1280,100,1120,100,960,100C800,100,640,100,480,100C320,100,160,100,80,100L0,100Z"></path>
+</svg>
+<section class='container-fluid' id='Head'>
+    <div class='row text-center rfsize'>
+        <div class='col-1'>
+            <a href='{% url 'problem' %}' class="nav-link text-dark text-center green-page">قبل</a>
+        </div>
+        <div class='col'>
+            <lable>کد شرکت:</lable>
+            {{ examinations_course.examinations_code }}
+        </div>
+        <div class='col-1'>
+            <a href='{% url 'solo_output' %}' class="nav-link text-dark text-center green-page">بعد</a>
+        </div>
+    </div>
+    <div class='row text-center rfsize'>
+        <div class='col'>
+            <lable>پزشک طب کار:دکتر</lable>
+            {{ examinations_course.doctor }}
+        </div>
+        <div class='col'>
+            <lable>کارخانه/کارگاه/شرکت:</lable>
+            {{ examinations_course.company }}
+        </div>
+    </div>
+    <div class='row text-center rfsize'>
+        <div class='col'>
+            <lable>کارشناس بهداشت حرفه ای:مهندس</lable>
+            {{ examinations_course.specialist }}
+        </div>
+        <div class='col'>
+            <lable>تاریخ انجام معاینات:</lable>
+            {{ examinations_course.year }}
+        </div>
+    </div>
+</section>
+<section class='container'>
+    <div class='row text-center mt-5' id='graph0'>
+        <div class='col d-flex align-items-center'>
+            <table style='width : 500px'>
+                <tr>
+                    <th colspan='3'>تری گلیسرید</th>
+                </tr>
+                <tr>
+                    <th style='width : 100px'></th>
+                    <th>تعداد</th>
+                    <th>درصد</th>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>نرمال</td>
+                    {% load django_template_maths %}
+                    <td>{{ data.0.0 }}</td>
+                    <td>{{ data.0.0|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>غیر نرمال</td>
+                    <td>{{ data.0.1 }}</td>
+                    <td>{{ data.0.1|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>ندارد</td>
+                    <td>{{ data.0.2 }}</td>
+                    <td>{{ data.0.2|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کل</td>
+                    <td>{{ count }}</td>
+                    <td>100</td>
+                </tr>
+            </table>
+        </div>
+        <div class='col'>
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+    <div class='row text-center mt-5' id='graph1'>
+        <div class='col d-flex align-items-center'>
+            <table style='width : 500px'>
+                <tr>
+                    <th colspan='3'>کلسترول</th>
+                </tr>
+                <tr>
+                    <th style='width : 100px'></th>
+                    <th>تعداد</th>
+                    <th>درصد</th>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>نرمال</td>
+                    {% load django_template_maths %}
+                    <td>{{ data.1.0 }}</td>
+                    <td>{{ data.1.0|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>غیر نرمال</td>
+                    <td>{{ data.1.1 }}</td>
+                    <td>{{ data.1.1|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>ندارد</td>
+                    <td>{{ data.1.2 }}</td>
+                    <td>{{ data.1.2|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کل</td>
+                    <td>{{ count }}</td>
+                    <td>100</td>
+                </tr>
+            </table>
+        </div>
+        <div class='col'>
+            <canvas id="myChart1"></canvas>
+        </div>
+    </div>
+    <div class='row text-center mt-5' id='graph2'>
+        <div class='col d-flex align-items-center'>
+            <table style='width : 500px'>
+                <tr>
+                    <th colspan='3'>وضعیت قند خون</th>
+                </tr>
+                <tr>
+                    <th style='width : 100px'></th>
+                    <th>تعداد</th>
+                    <th>درصد</th>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>نرمال</td>
+                    {% load django_template_maths %}
+                    <td>{{ data.2.0 }}</td>
+                    <td>{{ data.2.0|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>در محدوده احتیاط</td>
+                    <td>{{ data.2.1 }}</td>
+                    <td>{{ data.2.1|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>غیر نرمال</td>
+                    <td>{{ data.2.2 }}</td>
+                    <td>{{ data.2.2|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>ندارد</td>
+                    <td>{{ data.2.3 }}</td>
+                    <td>{{ data.2.3|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کل</td>
+                    <td>{{ count }}</td>
+                    <td>100</td>
+                </tr>
+            </table>
+        </div>
+        <div class='col'>
+            <canvas id="myChart2"></canvas>
+        </div>
+    </div>
+    <div class='row text-center mt-5' id='graph3'>
+        <div class='col d-flex align-items-center'>
+            <table style='width : 500px'>
+                <tr>
+                    <th colspan='3'>وضعیت فشار خون</th>
+                </tr>
+                <tr>
+                    <th style='width : 100px'></th>
+                    <th>تعداد</th>
+                    <th>درصد</th>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>نرمال</td>
+                    {% load django_template_maths %}
+                    <td>{{ data.3.0 }}</td>
+                    <td>{{ data.3.0|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>بالا</td>
+                    <td>{{ data.3.1 }}</td>
+                    <td>{{ data.3.1|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>پایین</td>
+                    <td>{{ data.3.2 }}</td>
+                    <td>{{ data.3.2|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>ندارد</td>
+                    <td>{{ data.3.3 }}</td>
+                    <td>{{ data.3.3|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کل</td>
+                    <td>{{ count }}</td>
+                    <td>100</td>
+                </tr>
+            </table>
+        </div>
+        <div class='col'>
+            <canvas id="myChart3"></canvas>
+        </div>
+    </div>
+    <div class='row text-center mt-5' id='graph4'>
+        <div class='col d-flex align-items-center'>
+            <table style='width : 500px'>
+                <tr>
+                    <th colspan='3'>وضعیت بینایی چشم چپ</th>
+                </tr>
+                <tr>
+                    <th style='width : 100px'></th>
+                    <th>تعداد</th>
+                    <th>درصد</th>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>نرمال</td>
+                    {% load django_template_maths %}
+                    <td>{{ data.5.0 }}</td>
+                    <td>{{ data.5.0|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>غیر نرمال</td>
+                    <td>{{ data.5.1 }}</td>
+                    <td>{{ data.5.1|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>ندارد</td>
+                    <td>{{ data.5.2 }}</td>
+                    <td>{{ data.5.2|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کل</td>
+                    <td>{{ count }}</td>
+                    <td>100</td>
+                </tr>
+            </table>
+        </div>
+        <div class='col'>
+            <canvas id="myChart4"></canvas>
+        </div>
+    </div>
+    <div class='row text-center mt-5' id='graph5'>
+        <div class='col d-flex align-items-center'>
+            <table style='width : 500px'>
+                <tr>
+                    <th colspan='3'>وضعیت بینایی چشم چپ</th>
+                </tr>
+                <tr>
+                    <th style='width : 100px'></th>
+                    <th>تعداد</th>
+                    <th>درصد</th>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>نرمال</td>
+                    {% load django_template_maths %}
+                    <td>{{ data.5.0 }}</td>
+                    <td>{{ data.5.0|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>غیر نرمال</td>
+                    <td>{{ data.5.1 }}</td>
+                    <td>{{ data.5.1|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>ندارد</td>
+                    <td>{{ data.5.2 }}</td>
+                    <td>{{ data.5.2|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کل</td>
+                    <td>{{ count }}</td>
+                    <td>100</td>
+                </tr>
+            </table>
+        </div>
+        <div class='col'>
+            <canvas id="myChart5"></canvas>
+        </div>
+    </div>
+    <div class='row text-center mt-5' id='graph6'>
+        <div class='col d-flex align-items-center'>
+            <table style='width : 500px'>
+                <tr>
+                    <th colspan='3'>اسپیرومتری</th>
+                </tr>
+                <tr>
+                    <th style='width : 100px'></th>
+                    <th>تعداد</th>
+                    <th>درصد</th>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>نرمال</td>
+                    {% load django_template_maths %}
+                    <td>{{ data.6.0 }}</td>
+                    <td>{{ data.6.0|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>تحدیدی</td>
+                    <td>{{ data.6.1 }}</td>
+                    <td>{{ data.6.1|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>انسدادی</td>
+                    <td>{{ data.6.2 }}</td>
+                    <td>{{ data.6.2|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>نیاز به تکرار</td>
+                    <td>{{ data.6.3 }}</td>
+                    <td>{{ data.6.3|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>نمای توأمان تحدیدی وانسدادی</td>
+                    <td>{{ data.6.4 }}</td>
+                    <td>{{ data.6.4|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>ندارد</td>
+                    <td>{{ data.6.5 }}</td>
+                    <td>{{ data.6.5|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کل</td>
+                    <td>{{ count }}</td>
+                    <td>100</td>
+                </tr>
+            </table>
+        </div>
+        <div class='col'>
+            <canvas id="myChart6"></canvas>
+        </div>
+    </div>
+    <div class='row text-center mt-5' id='graph7'>
+        <div class='col d-flex align-items-center'>
+            <table style='width : 500px'>
+                <tr>
+                    <th colspan='3'>ادیومتری گوش راست</th>
+                </tr>
+                <tr>
+                    <th style='width : 100px'></th>
+                    <th>تعداد</th>
+                    <th>درصد</th>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>نرمال</td>
+                    {% load django_template_maths %}
+                    <td>{{ data.7.0 }}</td>
+                    <td>{{ data.7.0|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کاهش شنوایی هدایتی</td>
+                    <td>{{ data.7.1 }}</td>
+                    <td>{{ data.7.1|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کاهش شنوایی حسی عصبی</td>
+                    <td>{{ data.7.2 }}</td>
+                    <td>{{ data.7.2|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کاهش شنوایی ناشی از صدا</td>
+                    <td>{{ data.7.3 }}</td>
+                    <td>{{ data.7.3|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>هدایتی و حسی عصبی</td>
+                    <td>{{ data.7.4 }}</td>
+                    <td>{{ data.7.4|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>ندارد</td>
+                    <td>{{ data.7.5 }}</td>
+                    <td>{{ data.7.5|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کل</td>
+                    <td>{{ count }}</td>
+                    <td>100</td>
+                </tr>
+            </table>
+        </div>
+        <div class='col'>
+            <canvas id="myChart7"></canvas>
+        </div>
+    </div>
+    <div class='row text-center mt-5' id='graph8'>
+        <div class='col d-flex align-items-center'>
+            <table style='width : 500px'>
+                <tr>
+                    <th colspan='3'>ادیومتری گوش چپ</th>
+                </tr>
+                <tr>
+                    <th style='width : 100px'></th>
+                    <th>تعداد</th>
+                    <th>درصد</th>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>نرمال</td>
+                    {% load django_template_maths %}
+                    <td>{{ data.8.0 }}</td>
+                    <td>{{ data.8.0|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کاهش شنوایی هدایتی</td>
+                    <td>{{ data.8.1 }}</td>
+                    <td>{{ data.8.1|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کاهش شنوایی حسی عصبی</td>
+                    <td>{{ data.8.2 }}</td>
+                    <td>{{ data.8.2|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کاهش شنوایی ناشی از صدا</td>
+                    <td>{{ data.8.3 }}</td>
+                    <td>{{ data.8.3|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>هدایتی و حسی عصبی</td>
+                    <td>{{ data.8.4 }}</td>
+                    <td>{{ data.8.4|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>ندارد</td>
+                    <td>{{ data.8.5 }}</td>
+                    <td>{{ data.8.5|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کل</td>
+                    <td>{{ count }}</td>
+                    <td>100</td>
+                </tr>
+            </table>
+        </div>
+        <div class='col'>
+            <canvas id="myChart8"></canvas>
+        </div>
+    </div>
+    <div class='row text-center mt-5' id='graph9'>
+        <div class='col d-flex align-items-center'>
+            <table style='width : 500px'>
+                <tr>
+                    <th colspan='3'>وضعیت ادرار</th>
+                </tr>
+                <tr>
+                    <th style='width : 100px'></th>
+                    <th>تعداد</th>
+                    <th>درصد</th>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>نرمال</td>
+                    {% load django_template_maths %}
+                    <td>{{ data.9.0 }}</td>
+                    <td>{{ data.9.0|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>غیر نرمال</td>
+                    <td>{{ data.9.1 }}</td>
+                    <td>{{ data.9.1|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>ندارد</td>
+                    <td>{{ data.9.2 }}</td>
+                    <td>{{ data.9.2|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کل</td>
+                    <td>{{ count }}</td>
+                    <td>100</td>
+                </tr>
+            </table>
+        </div>
+        <div class='col'>
+            <canvas id="myChart9"></canvas>
+        </div>
+    </div>
+    <div class='row text-center mt-5' id='graph10'>
+        <div class='col d-flex align-items-center'>
+            <table style='width : 500px'>
+                <tr>
+                    <th colspan='3'>وضعیت پرونده</th>
+                </tr>
+                <tr>
+                    <th style='width : 100px'></th>
+                    <th>تعداد</th>
+                    <th>درصد</th>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>بلامانع</td>
+                    {% load django_template_maths %}
+                    <td>{{ data.10.0 }}</td>
+                    <td>{{ data.10.0|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>مشروط</td>
+                    <td>{{ data.10.1 }}</td>
+                    <td>{{ data.10.1|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>رد صلاحیت</td>
+                    <td>{{ data.10.2 }}</td>
+                    <td>{{ data.10.2|mul:100|flr:count }}</td>
+                </tr>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>نظر نهایی انجام نشده</td>
+                    <td>{{ data.10.3 }}</td>
+                    <td>{{ data.10.3|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کل</td>
+                    <td>{{ count }}</td>
+                    <td>100</td>
+                </tr>
+            </table>
+        </div>
+        <div class='col'>
+            <canvas id="myChart10"></canvas>
+        </div>
+    </div>
+    <div class='row text-center mt-5' id='graph11'>
+        <div class='col d-flex align-items-center'>
+            <table style='width : 500px'>
+                <tr>
+                    <th colspan='3'>وضعیت سرب خون</th>
+                </tr>
+                <tr>
+                    <th style='width : 100px'></th>
+                    <th>تعداد</th>
+                    <th>درصد</th>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>نرمال</td>
+                    {% load django_template_maths %}
+                    <td>{{ data.11.0 }}</td>
+                    <td>{{ data.11.0|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>در محدوده احتیاط</td>
+                    <td>{{ data.11.1 }}</td>
+                    <td>{{ data.11.1|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>غیر نرمال</td>
+                    <td>{{ data.11.2 }}</td>
+                    <td>{{ data.11.2|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>ندارد</td>
+                    <td>{{ data.11.3 }}</td>
+                    <td>{{ data.11.3|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کل</td>
+                    <td>{{ count }}</td>
+                    <td>100</td>
+                </tr>
+            </table>
+        </div>
+        <div class='col'>
+            <canvas id="myChart11"></canvas>
+        </div>
+    </div>
+    <div class='row text-center mt-5' id='graph12'>
+        <div class='col d-flex align-items-center'>
+            <table style='width : 500px'>
+                <tr>
+                    <th colspan='3'>وضعیت psa</th>
+                </tr>
+                <tr>
+                    <th style='width : 100px'></th>
+                    <th>تعداد</th>
+                    <th>درصد</th>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>نرمال</td>
+                    {% load django_template_maths %}
+                    <td>{{ data.12.0 }}</td>
+                    <td>{{ data.12.0|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>غیر نرمال</td>
+                    <td>{{ data.12.1 }}</td>
+                    <td>{{ data.12.1|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>ندارد</td>
+                    <td>{{ data.12.2 }}</td>
+                    <td>{{ data.12.2|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کل</td>
+                    <td>{{ count }}</td>
+                    <td>100</td>
+                </tr>
+            </table>
+        </div>
+        <div class='col'>
+            <canvas id="myChart12"></canvas>
+        </div>
+    </div>
+    <div class='row text-center mt-5' id='graph13'>
+        <div class='col d-flex align-items-center'>
+            <table style='width : 500px'>
+                <tr>
+                    <th colspan='3'>نوار قلب</th>
+                </tr>
+                <tr>
+                    <th style='width : 100px'></th>
+                    <th>تعداد</th>
+                    <th>درصد</th>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>نرمال</td>
+                    {% load django_template_maths %}
+                    <td>{{ data.13.0 }}</td>
+                    <td>{{ data.13.0|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>وضعیت غیر اختصاصی</td>
+                    <td>{{ data.13.1 }}</td>
+                    <td>{{ data.13.1|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>نیاز به تکرار</td>
+                    <td>{{ data.13.2 }}</td>
+                    <td>{{ data.13.2|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>غیر نرمال</td>
+                    <td>{{ data.13.3 }}</td>
+                    <td>{{ data.13.3|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>ندارد</td>
+                    <td>{{ data.13.4 }}</td>
+                    <td>{{ data.13.4|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کل</td>
+                    <td>{{ count }}</td>
+                    <td>100</td>
+                </tr>
+            </table>
+        </div>
+        <div class='col'>
+            <canvas id="myChart13"></canvas>
+        </div>
+    </div>
+    <div class='row text-center mt-5' id='graph14'>
+        <div class='col d-flex align-items-center'>
+            <table style='width : 500px'>
+                <tr>
+                    <th colspan='3'>وضعیت D3</th>
+                </tr>
+                <tr>
+                    <th style='width : 100px'></th>
+                    <th>تعداد</th>
+                    <th>درصد</th>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کمبود</td>
+                    {% load django_template_maths %}
+                    <td>{{ data.14.0 }}</td>
+                    <td>{{ data.14.0|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>عدم کفایت</td>
+                    <td>{{ data.14.1 }}</td>
+                    <td>{{ data.14.1|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کافی</td>
+                    <td>{{ data.14.2 }}</td>
+                    <td>{{ data.14.2|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>مسمومیت</td>
+                    <td>{{ data.14.3 }}</td>
+                    <td>{{ data.14.3|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>ندارد</td>
+                    <td>{{ data.14.4 }}</td>
+                    <td>{{ data.14.4|mul:100|flr:count }}</td>
+                </tr>
+                <tr>
+                    <td style='width : 100px'>کل</td>
+                    <td>{{ count }}</td>
+                    <td>100</td>
+                </tr>
+            </table>
+        </div>
+        <div class='col'>
+            <canvas id="myChart14"></canvas>
+        </div>
+    </div>
+</section>
+<section class='container'>
+    <div class='row text-center mt-5'>
+        <div class='col'>
+            <a href="{% url 'graph_pdf' %}">pdf</a>
+        </div>
+    </div>
+</section>
+<script>
+const ctx = document.getElementById('myChart');
+const myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['نرمال', 'غیر نرمال', 'ندارد'],
+        datasets: [{ 
+            label: '# of Votes',
+            data: {{ data.0 }},
+            backgroundColor: [
+                'rgb(143, 255, 142)',
+                'rgb(255, 141, 142)',
+                'rgb(255, 255, 117)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+});
+const ctx1 = document.getElementById('myChart1');
+const myChart1 = new Chart(ctx1, {
+    type: 'pie',
+    data: {
+        labels: ['نرمال', 'غیر نرمال', 'ندارد'],
+        datasets: [{ 
+            label: '# of Votes',
+            data: {{ data.1 }},
+            backgroundColor: [
+                'rgb(143, 255, 142)',
+                'rgb(255, 141, 142)',
+                'rgb(255, 255, 117)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+});
+
+const ctx2 = document.getElementById('myChart2').getContext('2d');
+const myChart2 = new Chart(ctx2, {
+    type: 'pie',
+    data: {
+        labels: ['نرمال', 'در محدوده احتیاط', 'غیر نرمال', 'ندارد'],
+        datasets: [{ 
+            label: '# of Votes',
+            data: {{ data.2 }},
+            backgroundColor: [
+                'rgb(143, 255, 142)',
+                'rgb(192, 241, 255)',
+                'rgb(255, 141, 142)',
+                'rgb(255, 255, 117)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+});
+const ctx3 = document.getElementById('myChart3').getContext('2d');
+const myChart3 = new Chart(ctx3, {
+    type: 'pie',
+    data: {
+        labels: ['نرمال', 'بالا','پایین', 'ندارد'],
+        datasets: [{ 
+            label: '# of Votes',
+            data: {{ data.3 }},
+            backgroundColor: [
+                'rgb(143, 255, 142)',
+                'rgb(192, 241, 255)',
+                'rgb(255, 141, 142)',
+                'rgb(255, 255, 117)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+});
+const ctx4 = document.getElementById('myChart4').getContext('2d');
+const myChart4 = new Chart(ctx4, {
+    type: 'pie',
+    data: {
+        labels: ['نرمال', 'غیر نرمال', 'ندارد'],
+        datasets: [{ 
+            label: '# of Votes',
+            data: {{ data.4 }},
+            backgroundColor: [
+                'rgb(143, 255, 142)',
+                'rgb(255, 141, 142)',
+                'rgb(255, 255, 117)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+});
+const ctx5 = document.getElementById('myChart5').getContext('2d');
+const myChart5 = new Chart(ctx5, {
+    type: 'pie',
+    data: {
+        labels: ['نرمال', 'غیر نرمال', 'ندارد'],
+        datasets: [{ 
+            label: '# of Votes',
+            data: {{ data.5 }},
+            backgroundColor: [
+                'rgb(143, 255, 142)',
+                'rgb(255, 141, 142)',
+                'rgb(255, 255, 117)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+});
+const ctx6 = document.getElementById('myChart6').getContext('2d');
+const myChart6 = new Chart(ctx6, {
+    type: 'pie',
+    data: {
+        labels: ['نرمال', 'تحدیدی', 'انسدادی', 'تکرار', 'تحدیدی وانسدادی', 'ندارد'],
+        datasets: [{ 
+            label: '# of Votes',
+            data: {{ data.6 }},
+            backgroundColor: [
+                'rgb(143, 255, 142)',
+                'rgb(255, 141, 142)',
+                'rgb(219, 204, 156)',
+                'rgb(210, 175, 223)',
+                'rgb(192, 241, 255)',
+                'rgb(255, 255, 117)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+});
+const ctx7 = document.getElementById('myChart7').getContext('2d');
+const myChart7 = new Chart(ctx7, {
+    type: 'pie',
+    data: {
+        labels: ['نرمال', 'کاهش شنوایی هدایتی', 'کاهش شنوایی حسی عصبی', 'کاهش شنوایی ناشی از صدا', 'هدایتی و حسی عصبی', 'ندارد'],
+        datasets: [{ 
+            label: '# of Votes',
+            data: {{ data.7 }},
+            backgroundColor: [
+                'rgb(143, 255, 142)',
+                'rgb(255, 141, 142)',
+                'rgb(219, 204, 156)',
+                'rgb(210, 175, 223)',
+                'rgb(192, 241, 255)',
+                'rgb(255, 255, 117)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+});
+const ctx8 = document.getElementById('myChart8').getContext('2d');
+const myChart8 = new Chart(ctx8, {
+    type: 'pie',
+    data: {
+        labels: ['نرمال', 'کاهش شنوایی هدایتی', 'کاهش شنوایی حسی عصبی', 'کاهش شنوایی ناشی از صدا', 'هدایتی و حسی عصبی', 'ندارد'],
+        datasets: [{ 
+            label: '# of Votes',
+            data: {{ data.8 }},
+            backgroundColor: [
+                'rgb(143, 255, 142)',
+                'rgb(255, 141, 142)',
+                'rgb(219, 204, 156)',
+                'rgb(210, 175, 223)',
+                'rgb(192, 241, 255)',
+                'rgb(255, 255, 117)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+});
+const ctx9 = document.getElementById('myChart9').getContext('2d');
+const myChart9 = new Chart(ctx9, {
+    type: 'pie',
+    data: {
+        labels: ['نرمال', 'غیر نرمال', 'ندارد'],
+        datasets: [{ 
+            label: '# of Votes',
+            data: {{ data.9 }},
+            backgroundColor: [
+                'rgb(143, 255, 142)',
+                'rgb(255, 141, 142)',
+                'rgb(255, 255, 117)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+});
+const ctx10 = document.getElementById('myChart10').getContext('2d');
+const myChart10 = new Chart(ctx10, {
+    type: 'pie',
+    data: {
+        labels: ['بلامانع', 'مشروط', 'رد صلاحیت', 'نظر نهایی انجام نشده'],
+        datasets: [{ 
+            label: '# of Votes',
+            data: {{ data.10 }},
+            backgroundColor: [
+                'rgb(143, 255, 142)',
+                'rgb(192, 241, 255)',
+                'rgb(255, 141, 142)',
+                'rgb(255, 255, 117)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+});
+const ctx11 = document.getElementById('myChart11').getContext('2d');
+const myChart11 = new Chart(ctx11, {
+    type: 'pie',
+    data: {
+        labels: ['نرمال','در محدوده احتیاط','غیر نرمال','ندارد'],
+        datasets: [{ 
+            label: '# of Votes',
+            data: {{ data.11 }},
+            backgroundColor: [
+                'rgb(143, 255, 142)',
+                'rgb(192, 241, 255)',
+                'rgb(255, 141, 142)',
+                'rgb(255, 255, 117)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+});
+const ctx12 = document.getElementById('myChart12').getContext('2d');
+const myChart12 = new Chart(ctx12, {
+    type: 'pie',
+    data: {
+        labels: ['نرمال', 'غیر نرمال', 'ندارد'],
+        datasets: [{ 
+            label: '# of Votes',
+            data: {{ data.12 }},
+            backgroundColor: [
+                'rgb(143, 255, 142)',
+                'rgb(255, 141, 142)',
+                'rgb(255, 255, 117)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+});
+const ctx13 = document.getElementById('myChart13').getContext('2d');
+const myChart13 = new Chart(ctx13, {
+    type: 'pie',
+    data: {
+        labels: ['نرمال', 'وضعیت غیر اختصاصی', 'نیاز به تکرار','غیر نرمال','ندارد'],
+        datasets: [{ 
+            label: '# of Votes',
+            data: {{ data.13 }},
+            backgroundColor: [
+                'rgb(143, 255, 142)',
+                'rgb(255, 141, 142)',
+                'rgb(219, 204, 156)',
+                'rgb(192, 241, 255)',
+                'rgb(255, 255, 117)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+});
+const ctx14 = document.getElementById('myChart14').getContext('2d');
+const myChart14 = new Chart(ctx14, {
+    type: 'pie',
+    data: {
+        labels: ['کمبود', 'عدم کفایت','کافی','مسمومیت','ندارد',],
+        datasets: [{ 
+            label: '# of Votes',
+            data: {{ data.14 }},
+            backgroundColor: [
+                'rgb(143, 255, 142)',
+                'rgb(255, 141, 142)',
+                'rgb(219, 204, 156)',
+                'rgb(192, 241, 255)',
+                'rgb(255, 255, 117)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+});
+</script>
+{% endblock content %}

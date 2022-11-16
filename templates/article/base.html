@@ -1,0 +1,105 @@
+{% load static %}
+{% load has_group %}
+<!DOCTYPE html>
+<html lang='fa' dir="rtl" >
+    <head>
+        {% block head %}
+        {% endblock head %}
+        <meta charset="UTF-8">
+        <meta name="author" content="Mohammad Parsa Amiri">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>مرکز طب کار پارسیان</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" 
+        rel="stylesheet" 
+        integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" 
+        crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'js/style.js' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/summary_of_results.css' %}">
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+        <link rel="stylesheet" href="{% static 'awesome/fontawesome/css/all.css' %}">
+        <link rel="stylesheet" href="{% static 'awesome/fontawesome/css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font.css' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+        </script>
+        <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
+        <script 
+        src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" 
+        integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" 
+        crossorigin="anonymous" 
+        referrerpolicy="no-referrer"></script>  
+    </head>
+    <body>
+    {% block header %}
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light ">
+            <h5 class="navbar-brand" href="#"><img src="{% static 'images/logo.jpg' %}" ></h5>
+            <button class="navbar-toggler ham"  type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+                <li class="nav-item  nav-li">
+                    <a class="nav-link active green text-center" 
+                    aria-current="page" 
+                    href="../" 
+                    tabindex="-1" aria-disabled="true"><b>خانه</b></a>
+                </li>
+                <li class="nav-item nav-li" >
+                    <a class="nav-link text-dark green text-center" 
+                    href="{% url 'services' %}" tabindex="-1" aria-disabled="true"><b>خدمات</b></a></li>
+                <li class="nav-item nav-li " >
+                    <a class="nav-link text-dark green text-center"
+                    href="{% url 'occupational_medicine' %}" tabindex="-1" aria-disabled="true"><b>طب کار چیست</b></a></li>
+                <li class="nav-item nav-li">
+                    <a class="nav-link text-dark green text-center" 
+                    href="{% url 'contact_us' %}" tabindex="-1" aria-disabled="true"><b>ارتباط با ما</b></a></li>
+                {% if user.is_authenticated  %}
+                <li class="nav-item nav-li">
+                    <a class="nav-link text-dark green text-center" 
+                    href="{% url 'input' %}" tabindex="-1" aria-disabled="true" name='input'><b>ورودی</b></a></li>
+                <li class="nav-item nav-li">
+                    <a class="nav-link text-dark green text-center" 
+                    href="{% url 'output' %}" tabindex="-1" aria-disabled="true" name='output'><b>خروجی</b></a></li>
+                {% else %}
+                <li class="nav-item nav-li">
+                    <a class="nav-link text-dark green text-center" 
+                    href="{% url 'login' %}" tabindex="-1" aria-disabled="true"><b>ورود</b></a></li>
+                {% endif %}
+                </ul>
+            </div>
+        </nav>
+        <svg class='mt-1' id="wave" style="transition: 0.3s" viewBox="0 0 1440 100" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(127, 255, 0, 1)" offset="0%"></stop><stop stop-color="rgba(127, 255, 0, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)" d="M0,30L80,38.3C160,47,320,63,480,60C640,57,800,33,960,25C1120,17,1280,23,1440,31.7C1600,40,1760,50,1920,51.7C2080,53,2240,47,2400,50C2560,53,2720,67,2880,61.7C3040,57,3200,33,3360,25C3520,17,3680,23,3840,30C4000,37,4160,43,4320,46.7C4480,50,4640,50,4800,55C4960,60,5120,70,5280,68.3C5440,67,5600,53,5760,53.3C5920,53,6080,67,6240,66.7C6400,67,6560,53,6720,55C6880,57,7040,73,7200,66.7C7360,60,7520,30,7680,28.3C7840,27,8000,53,8160,68.3C8320,83,8480,87,8640,88.3C8800,90,8960,90,9120,76.7C9280,63,9440,37,9600,25C9760,13,9920,17,10080,20C10240,23,10400,27,10560,25C10720,23,10880,17,11040,25C11200,33,11360,57,11440,68.3L11520,80L11520,100L11440,100C11360,100,11200,100,11040,100C10880,100,10720,100,10560,100C10400,100,10240,100,10080,100C9920,100,9760,100,9600,100C9440,100,9280,100,9120,100C8960,100,8800,100,8640,100C8480,100,8320,100,8160,100C8000,100,7840,100,7680,100C7520,100,7360,100,7200,100C7040,100,6880,100,6720,100C6560,100,6400,100,6240,100C6080,100,5920,100,5760,100C5600,100,5440,100,5280,100C5120,100,4960,100,4800,100C4640,100,4480,100,4320,100C4160,100,4000,100,3840,100C3680,100,3520,100,3360,100C3200,100,3040,100,2880,100C2720,100,2560,100,2400,100C2240,100,2080,100,1920,100C1760,100,1600,100,1440,100C1280,100,1120,100,960,100C800,100,640,100,480,100C320,100,160,100,80,100L0,100Z"></path></svg>  
+        </header>
+    {% endblock header %}
+    {% block content %}
+    {% endblock content %}
+    {% block footer %}
+    <svg class='mt-1' id="wave" style="transition: 0.3s" viewBox="0 0 1440 100" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(127, 255, 0, 1)" offset="0%"></stop><stop stop-color="rgba(127, 255, 0, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)" d="M0,30L80,38.3C160,47,320,63,480,60C640,57,800,33,960,25C1120,17,1280,23,1440,31.7C1600,40,1760,50,1920,51.7C2080,53,2240,47,2400,50C2560,53,2720,67,2880,61.7C3040,57,3200,33,3360,25C3520,17,3680,23,3840,30C4000,37,4160,43,4320,46.7C4480,50,4640,50,4800,55C4960,60,5120,70,5280,68.3C5440,67,5600,53,5760,53.3C5920,53,6080,67,6240,66.7C6400,67,6560,53,6720,55C6880,57,7040,73,7200,66.7C7360,60,7520,30,7680,28.3C7840,27,8000,53,8160,68.3C8320,83,8480,87,8640,88.3C8800,90,8960,90,9120,76.7C9280,63,9440,37,9600,25C9760,13,9920,17,10080,20C10240,23,10400,27,10560,25C10720,23,10880,17,11040,25C11200,33,11360,57,11440,68.3L11520,80L11520,100L11440,100C11360,100,11200,100,11040,100C10880,100,10720,100,10560,100C10400,100,10240,100,10080,100C9920,100,9760,100,9600,100C9440,100,9280,100,9120,100C8960,100,8800,100,8640,100C8480,100,8320,100,8160,100C8000,100,7840,100,7680,100C7520,100,7360,100,7200,100C7040,100,6880,100,6720,100C6560,100,6400,100,6240,100C6080,100,5920,100,5760,100C5600,100,5440,100,5280,100C5120,100,4960,100,4800,100C4640,100,4480,100,4320,100C4160,100,4000,100,3840,100C3680,100,3520,100,3360,100C3200,100,3040,100,2880,100C2720,100,2560,100,2400,100C2240,100,2080,100,1920,100C1760,100,1600,100,1440,100C1280,100,1120,100,960,100C800,100,640,100,480,100C320,100,160,100,80,100L0,100Z"></path></svg>  
+    <footer>
+        <div class="container">
+        <div class="row">
+            <div class="col-8">
+            <h3>مرکز طب کار پارسیان</h3>
+                <ul>
+                    <li><span class="ms-2"><i class="fas fa-phone"></i></span>تلفن:0253779570</li>
+                    <li><span class="ms-2"><i class="fab fa-whatsapp"></i></span> واتساپ:09396158243</li>
+                    <li><span class="ms-2"><i class="fab fa-telegram-plane"></i></span>تلگرام:09191980190</li>
+                    <li><span class="ms-2"><i class="fas fa-fax"></i></span>فکس:0253772695</li>
+                    <li><span class="ms-2"><i class="fas fa-map-marker-alt"></i></span>آدرس:قم/۱۵	 خرداد/نبش خیابان نظری ثابت/بالای داروخانه دکتر امیرابراهیمی</li>
+                </ul>
+            </div>
+            {% if user.is_not_authenticated %}
+            <div class="col text-center mb-2">
+                <iframe  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d690.0678046003258!2d50.90972675563821!3d34.64121033502809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f93bdec745499a9%3A0x12d03cd483fcefb4!2z2K_Yp9ix2YjYrtin2YbZhyDYr9qp2KrYsdin2YXbjNix2KfYqNix2KfZh9uM2YXbjCB8INm-2YTYp9izINiv2KfYsdmI!5e0!3m2!1sen!2s!4v1634118555266!5m2!1sen!2s" width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            {% endif %}
+        </div>
+        </div>
+    </footer>
+    {% endblock footer %}
+</body>
