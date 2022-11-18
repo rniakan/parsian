@@ -646,6 +646,7 @@ def graph_view(request):
             d_sug += 1   
         elif experiments.fbs < 100:
             a_sug += 1
+            
         elif experiments.fbs < 126:
             b_sug += 1
         elif experiments.fbs >=126:
