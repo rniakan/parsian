@@ -112,13 +112,13 @@
                 {{ personal_species.raste }}
             </div>
             <div class='col'>
-                <lable>معافیت پزشکی</lable>
+                <lable>معافیت </lable>
                 {{ personal_species.medical_exemption }}
             </div>
         </div>
         <div class='row text-center mt-4'>
             <div class='col'>
-                <lable>علت معافیت پزشکی:</lable>
+                <lable>علت معافیت :</lable>
                 {{ personal_species.medical_exemption_reason }}
             </div>
             <div class='col'>
@@ -485,22 +485,22 @@
                 <tr id='checkboxes2'>
                     <td class='text-center'>2</td>
                     <td>در صورت ابتلا به بیماری آیا علایم شما در محیط کار تغییر می کند؟</td>
-                    <td class='text-center'>{{ personal_history.second_y }}</td>
-                    <td class='text-center'>{{ personal_history.second_n }}</td>
+                    <td class='text-center'></td>
+                    <td class='text-center'></td>
                     <td>{{ personal_history.second_des }}</td>
                 </tr>
                 <tr id='checkboxes3'>
                     <td class='text-center'>3</td>
                     <td>در صورت ابتلا به بیماری آیا همکاران شما علایم مشابه در محل کار دارند؟</td>
-                    <td class='text-center'>{{ personal_history.third_y }}</td>
-                    <td class='text-center'>{{ personal_history.third_n }}</td>
+                    <td class='text-center'></td>
+                    <td class='text-center'></td>
                     <td>{{ personal_history.third_des }}</td>
                 </tr>
                 <tr id='checkboxes4'>
                     <td class='text-center'>4</td>
                     <td>در صورت ابتلا به بیماری آیا علایم شما در زمان تعطیلات و مرخصی ها تغییر می کند؟</td>
-                    <td class='text-center'>{{ personal_history.fourth_y }}</td>
-                    <td class='text-center'>{{ personal_history.fourth_n }}</td>
+                    <td class='text-center'></td>
+                    <td class='text-center'></td>
                     <td>{{ personal_history.fourth_des }}</td>
                 </tr>
                 <tr id='checkboxes5'>
@@ -1734,12 +1734,12 @@
         </div> 
         <div class='row mt-3' dir=ltr>
             <div class='col'>
-                CBC:WBC:{{ experiments.cbc_wbc }}k/RBC:{{ experiments.cbc_rbc }}m/Hb:{{ experiments.cbc_hb }}HCT:{{ experiments.cbc_htc }}Plt:{{ experiments.cbc_plt }}
+                CBC:WBC:{{ experiments.cbc_wbc }}/RBC:{{ experiments.cbc_rbc }}m/Hb:{{ experiments.cbc_hb }}HCT:{{ experiments.cbc_htc }}Plt:{{ experiments.cbc_plt }}
             </div>
         </div>
         <div class='row mt-3' dir=ltr>
             <div class='col'>
-                U/A:Prot:{{ experiments.ua_prot }} Glu:{{ experiments.ua_glu }}RBC:{{ experiments.ua_rbc }}WBC:{{ experiments.ua_wbc }}Bact:{{ experiments.ua_bact }}
+                U/A:Prot:{{ experiments.ua_prot }} Glu:{{ experiments.ua_glu }}RBC:{{ experiments.ua_rbc }}WBC:{{ experiments.ua_wbc }}Bact:{{ experiments.ua_bact }} <input type = 'checkbox' id = 'ua'>نرمال
             </div>
         </div>
         <div class='row mt-3' dir=ltr>
@@ -2100,6 +2100,26 @@ $(function() {
       }
     }
     e.addEventListener("change", autoFill)
+</script>
+<script>
+    const jsonList = {
+        'true':[0,0,0,0,0],
+        'false':['','','','',''],
+      };
+      const e = document.getElementById("ua");
+      const inputs = document.getElementsByClassName("auto-ua");
+      function autoFill() {
+        const ev = e.checked;
+        const list = jsonList[ev];
+        for (let i=0; i<inputs.length; i++) {
+          if (typeof list[i] == "boolean") {
+            inputs[i].checked = list[i];
+          } else {
+            inputs[i].value = list[i];
+          }
+        }
+      }
+      e.addEventListener("change", autoFill)
 </script>
 {% endfor %}
 {% endblock content %}

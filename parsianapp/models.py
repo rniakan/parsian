@@ -427,8 +427,7 @@ class Examinations_Model(models.Model):
 
     other = models.CharField(max_length=250, null=True, blank=True)
     body_mass = models.IntegerField(null=True, blank=True)
-    CODE_CHOICES = [(1, '1'), (2, '2'), (3, '3')]
-    code = models.IntegerField(default=1, choices=CODE_CHOICES, null=True, blank=True)
+    code = models.CharField(default=None, null=True, blank=True,max_length=250)
     not_normals = models.CharField(max_length=250,null=True,blank=True)
 
 class Experiments_Model(models.Model):

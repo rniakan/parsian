@@ -9,7 +9,6 @@ from django.contrib.auth import logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login
 from django.views.decorators.http import require_POST
-from webdriver_manager.chrome import ChromeDriverManager
 from django.views import generic
 from . import forms, models
 from django.core.paginator import Paginator
@@ -71,31 +70,31 @@ def login_view(request):
 
 
 
-@login_required(login_url='login')
-def submit_person_view(request):
-    work=Summary_Of_Results_Model.objects.last()
-    code_list=Submit_Company_Model.objects.order_by('id')
-    if work:
-        code=work.examinations_code
-    else:
-        code=''
-    initial_dict = {
-        'examinations_code':code
+# @login_required(login_url='login')
+# def submit_person_view(request):
+#     work=Summary_Of_Results_Model.objects.last()
+#     code_list=Submit_Company_Model.objects.order_by('id')
+#     if work:
+#         code=work.examinations_code
+#     else:
+#         code=''
+#     initial_dict = {
+#         'examinations_code':code
         
-    }
+#     }
 
-    form=summary_of_results_form(initial=initial_dict)
-    context={'form':form,
-    'code_list':code_list}
-    return render(request,'examinations.html',context)
+#     form=summary_of_results_form(initial=initial_dict)
+#     context={'form':form,
+#     'code_list':code_list}
+#     return render(request,'examinations.html',context)
 
 
-@require_POST
-def addperson_view(request):
-    form = summary_of_results_form(request.POST)
-    if form.is_valid():
-        new_summary = form.save()
-    return redirect('submit_person')
+# @require_POST
+# def addperson_view(request):
+#     form = summary_of_results_form(request.POST)
+#     if form.is_valid():
+#         new_summary = form.save()
+#     return redirect('submit_person')
 
 
 def logoutuser_view(request):
@@ -646,7 +645,6 @@ def graph_view(request):
             d_sug += 1   
         elif experiments.fbs < 100:
             a_sug += 1
-            
         elif experiments.fbs < 126:
             b_sug += 1
         elif experiments.fbs >=126:
@@ -660,11 +658,11 @@ def graph_view(request):
         examinations=Examinations_Model.objects.filter(person=summary).last()
         if examinations.blood_pressure == None:
             d_pre += 1
-        elif examinations.blood_pressure < 9:
+        elif examinations.blood_pressure < 90:
             c_pre += 1
-        elif examinations.blood_pressure >= 9 and examinations.blood_pressure <= 14:
+        elif examinations.blood_pressure >= 90 and examinations.blood_pressure <= 140:
             a_pre += 1
-        elif examinations.blood_pressure > 14:
+        elif examinations.blood_pressure > 140:
             b_pre += 1
     data_pre.append(a_pre)
     data_pre.append(b_pre)
@@ -1499,7 +1497,7 @@ def addexaminations_view(request):
         new_experiments = experiments.save(commit=False)
         new_experiments.person = new_person
         if new_experiments.cbc_wbc:
-            if new_experiments.cbc_wbc < 4 or new_experiments.cbc_wbc >10:
+            if new_experiments.cbc_wbc < 3900 or new_experiments.cbc_wbc >11000:
                 new_experiments.cbc_wbc_status = False 
             else:
                 new_experiments.cbc_wbc_status = True
@@ -1656,7 +1654,7 @@ def addexaminations_view(request):
             new_experiments.psa_status = True
         if new_person.gender == 'mard':
             if new_experiments.cbc_rbc:
-                if new_experiments.cbc_rbc < 4 or new_experiments.cbc_rbc >5.5:
+                if new_experiments.cbc_rbc < 4 or new_experiments.cbc_rbc >6:
                     new_experiments.cbc_rbc_status = False 
                 else:
                     new_experiments.cbc_rbc_status = True
@@ -2377,7 +2375,7 @@ def examinations_output_edit_view(request):
         new_experiments = experiments.save(commit=False)
         new_experiments.person = new_person
         if new_experiments.cbc_wbc:
-            if new_experiments.cbc_wbc < 4 or new_experiments.cbc_wbc >10:
+            if new_experiments.cbc_wbc < 3900 or new_experiments.cbc_wbc >11000:
                 new_experiments.cbc_wbc_status = False 
             else:
                 new_experiments.cbc_wbc_status = True
@@ -2534,7 +2532,7 @@ def examinations_output_edit_view(request):
             new_experiments.psa_status = True
         if new_person.gender == 'mard':
             if new_experiments.cbc_rbc:
-                if new_experiments.cbc_rbc < 4 or new_experiments.cbc_rbc >5.5:
+                if new_experiments.cbc_rbc < 4 or new_experiments.cbc_rbc >6:
                     new_experiments.cbc_rbc_status = False 
                 else:
                     new_experiments.cbc_rbc_status = True
