@@ -1739,7 +1739,7 @@
         </div>
         <div class='row mt-3' dir=ltr>
             <div class='col'>
-                U/A:Prot:{{ experiments.ua_prot }} Glu:{{ experiments.ua_glu }}RBC:{{ experiments.ua_rbc }}WBC:{{ experiments.ua_wbc }}Bact:{{ experiments.ua_bact }} <input type = 'checkbox' id = 'ua'>نرمال
+                U/A:Prot:{{ experiments.ua_prot }} Glu:{{ experiments.ua_glu }}RBC:{{ experiments.ua_rbc }}WBC:{{ experiments.ua_wbc }}Bact:{{ experiments.ua_bact }} <input type = 'checkbox' id = 'selectBox'>نرمال
             </div>
         </div>
         <div class='row mt-3' dir=ltr>
@@ -2103,23 +2103,23 @@ $(function() {
 </script>
 <script>
     const jsonList = {
-        'true':[0,0,0,0,0],
-        'false':['','','','',''],
-      };
-      const e = document.getElementById("ua");
-      const inputs = document.getElementsByClassName("auto-ua");
-      function autoFill() {
+        'true' : ['0','0','0','0','0'],
+        'false' : ['',"",'','',''],
+        };
+    const e = document.getElementById("selectBox");
+    const inputs = document.getElementsByClassName("ua");
+    function autoFill() {
         const ev = e.checked;
         const list = jsonList[ev];
         for (let i=0; i<inputs.length; i++) {
-          if (typeof list[i] == "boolean") {
+        if (typeof list[i] == "boolean") {
             inputs[i].checked = list[i];
-          } else {
+        } else {
             inputs[i].value = list[i];
-          }
         }
-      }
-      e.addEventListener("change", autoFill)
+        }
+    }
+    e.addEventListener("change", autoFill)
 </script>
 {% endfor %}
 {% endblock content %}

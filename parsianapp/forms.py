@@ -42,15 +42,15 @@ class disease_form(forms.ModelForm):
         ,'name' : forms.TextInput(attrs={'class':'text','autocomplete': 'off'})
         ,'fathers_name' : forms.TextInput(attrs={'class':'text','autocomplete': 'off'})
         ,'personal_code' : forms.NumberInput(attrs={'class':'personal_w','autocomplete': 'off'})
-        ,'p_age' : forms.NumberInput(attrs={'class':'box','autocomplete': 'off'})
-        ,'p_name' : forms.TextInput(attrs={'class':'text','autocomplete': 'off'})
-        ,'p_fathers_name' : forms.TextInput(attrs={'class':'text','autocomplete': 'off'})
-        ,'p_personal_code' : forms.NumberInput(attrs={'class':'personal_w','autocomplete': 'off'})
+        ,'p_age' : forms.NumberInput(attrs={'style':'width : 100px','autocomplete': 'off','list':'age'})
+        ,'p_name' : forms.TextInput(attrs={'class':'text','autocomplete': 'off','list':'name'})
+        ,'p_fathers_name' : forms.TextInput(attrs={'class':'text','autocomplete': 'off','list':'fathers_name'})
+        ,'p_personal_code' : forms.NumberInput(attrs={'class':'personal_w','autocomplete': 'off','list':'personal_code'})
         ,'p_examinations_code' : forms.TextInput(attrs={'autocomplete': 'off','list':'examinations_code'})
-        ,'e_age' : forms.NumberInput(attrs={'class':'box','autocomplete': 'off'})
-        ,'e_name' : forms.TextInput(attrs={'class':'text','autocomplete': 'off'})
-        ,'e_fathers_name' : forms.TextInput(attrs={'class':'text','autocomplete': 'off'})
-        ,'e_personal_code' : forms.NumberInput(attrs={'class':'personal_w','autocomplete': 'off'})
+        ,'e_age' : forms.NumberInput(attrs={'style':'width : 100px','autocomplete': 'off','list':'age'})
+        ,'e_name' : forms.TextInput(attrs={'class':'text','autocomplete': 'off','list':'name'})
+        ,'e_fathers_name' : forms.TextInput(attrs={'class':'text','autocomplete': 'off','list':'fathers_name'})
+        ,'e_personal_code' : forms.NumberInput(attrs={'class':'personal_w','autocomplete': 'off','list':'persona_code'})
         ,'e_examinations_code' : forms.TextInput(attrs={'autocomplete': 'off','list':'examinations_code'})
         }  
 
@@ -232,11 +232,11 @@ class experiments_form(forms.ModelForm):
         'cbc_hb' : forms.NumberInput(attrs={'class':'examination_box','autocomplete': 'off','step':'0.00001'}),
         'cbc_htc' : forms.NumberInput(attrs={'class':'examination_box','autocomplete': 'off','step':'0.00001'}),
         'cbc_plt' : forms.NumberInput(attrs={'class':'examination_box','autocomplete': 'off','step':'0.00001'}),
-        'ua_prot' : forms.NumberInput(attrs={'class':'examination_box auto-ua','autocomplete': 'off','step':'0.00001'}),
-        'ua_glu' : forms.NumberInput(attrs={'class':'examination_box auto-ua','autocomplete': 'off','step':'0.00001'}),
-        'ua_rbc' : forms.NumberInput(attrs={'class':'examination_box auto-ua','autocomplete': 'off','step':'0.00001'}),
-        'ua_wbc' : forms.NumberInput(attrs={'class':'examination_box auto-ua','autocomplete': 'off','step':'0.00001'}),
-        'ua_bact' : forms.NumberInput(attrs={'class':'examination_box auto-ua','autocomplete': 'off','step':'0.00001'}),
+        'ua_prot' : forms.NumberInput(attrs={'class':'examination_box ua','autocomplete': 'off','step':'0.00001'}),
+        'ua_glu' : forms.NumberInput(attrs={'class':'examination_box ua','autocomplete': 'off','step':'0.00001'}),
+        'ua_rbc' : forms.NumberInput(attrs={'class':'examination_box ua','autocomplete': 'off','step':'0.00001'}),
+        'ua_wbc' : forms.NumberInput(attrs={'class':'examination_box ua','autocomplete': 'off','step':'0.00001'}),
+        'ua_bact' : forms.NumberInput(attrs={'class':'examination_box ua','autocomplete': 'off','step':'0.00001'}),
         'fbs' : forms.NumberInput(attrs={'class':'examination_box','autocomplete': 'off','step':'0.00001'}),
         'chol' : forms.NumberInput(attrs={'class':'examination_box','autocomplete': 'off','step':'0.00001'}),
         'ldl' : forms.NumberInput(attrs={'class':'examination_box','autocomplete': 'off','step':'0.00001'}),

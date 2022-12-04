@@ -1,4 +1,5 @@
 {% extends 'article/base.html' %}
+{% load django_template_maths %}
 {% load static %}
 {% block content %}
 <script>
@@ -42,35 +43,40 @@
                 {% csrf_token %}
                 <lable>نام :</lable>
                 {{ form.p_name }}
+                <datalist id='name'>
+                    {% for item in inputlist %}
+                    <option value='{{ item.name }}'></option>
+                    {% endfor %}
+                </datalist>
             </div>
             <div class='col-3'>
                 <lable>نام پدر:</lable>
                 {{ form.p_fathers_name }}
+                <datalist id='fathers_name'>
+                    {% for item in inputlist %}
+                    <option value='{{ item.fathers_name }}'></option>
+                    {% endfor %}
+                </datalist>
             </div>
             <div class='col'>
                 <lable>سن:</lable>
                 {{ form.p_age }}
+                <datalist id='age'>
+                    {% for item in inputlist %}
+                    <option value='{{ 1401|sub:item.age }}'><option>
+                    {% endfor %}
+                </datalist>
             </div>
             <div class='col-3'>
                 <lable>کد ملی:</lable>
                 {{ form.p_personal_code }}
-            </div>
-            <div class='col'>
-                <input type="submit" value="  ثبت ">
-            </div>
-        </div>
-    </form>
-    <form action='{% url 'addexperex' %}' method='POST'>
-        {% csrf_token %}
-        <div class='row text-center mt-4'>
-            <div class="col">
-                {{ form.p_examinations_code }}
-                <datalist id='examinations_code'>
-                    <option value='all'></option>
-                    {% for item in code_list %}
-                    <option value='{{ item.examinations_code }}'></option>
+                <datalist id='personal_code'>
+                    {% for item in inputlist %}
+                    <option value='{{ item.personal_code }}'></option>
                     {% endfor %}
                 </datalist>
+            </div>
+            <div class='col'>
                 <input type="submit" value="  ثبت ">
             </div>
         </div>

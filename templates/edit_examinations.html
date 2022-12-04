@@ -67,36 +67,43 @@
     </form> {% endcomment %}
     <form action='{% url 'addedit' %}' method='POST'>
         <div class='row text-center mt-4'>
-            <div class='col-4'>
+            <div class='col-3'>
                 {% csrf_token %}
                 <lable>نام :</lable>
                 {{ form.e_name }}
-            </div>
-            <div class='col-4'>
-                <lable>نام پدر:</lable>
-                {{ form.e_fathers_name }}
-            </div>
-            <div class='col-4'>
-                <lable>سن:</lable>
-                {{ form.e_age }}
-            </div>
-        </div>
-        <div class='row text-center mt-3'>
-            <div class='col'>
-                <lable>کد ملی:</lable>
-                {{ form.e_personal_code }}
-            </div>
-            <div class="col">
-                <lable>کد دوره معاینات</lable>
-                {{ form.e_examinations_code }}
-                <datalist id='examinations_code'>
-                    {% for item in code_list %}
-                    <option value='{{ item.examinations_code }}'></option>
+                <datalist id='name'>
+                    {% for item in inputlist %}
+                    <option value='{{ item.name }}'></option>
                     {% endfor %}
                 </datalist>
             </div>
-        </div>
-        <div class='row text-center mt-3'>
+            <div class='col-3'>
+                <lable>نام پدر:</lable>
+                {{ form.e_fathers_name }}
+                <datalist id='fathers_name'>
+                    {% for item in inputlist %}
+                    <option value='{{ item.fathers_name }}'></option>
+                    {% endfor %}
+                </datalist>
+            </div>
+            <div class='col'>
+                <lable>سن:</lable>
+                {{ form.e_age }}
+                <datalist id='age'>
+                    {% for item in inputlist %}
+                    <option value='{{ item.age }}'><o/ption>
+                    {% endfor %}
+                </datalist>
+            </div>
+            <div class='col-3'>
+                <lable>کد ملی:</lable>
+                {{ form.e_personal_code }}
+                <datalist id='personal_code'>
+                    {% for item in inputlist %}
+                    <option value='{{ item.personal_code }}'></option>
+                    {% endfor %}
+                </datalist>
+            </div>
             <div class='col'>
                 <input type="submit" value="  ثبت ">
             </div>
@@ -2110,6 +2117,13 @@
         <div class='row text-center mt-4'>
             <div class='col'>
                 <input type="submit" value="ذخیره و ثبت جدید">
+            </div>
+            <div class='col'>
+                <form action='{% url 'delete' %}' method='POST'>
+                    <div class='b-red'>
+                        <input class='b-red' type="submit" value='حذف'>
+                    </div>
+                </form>
             </div>
         </div>
     </form>

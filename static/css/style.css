@@ -1,6 +1,9 @@
 .b-green{
 background-color: chartreuse;
 }
+.b-red{
+  background-color: red;
+}
 .green{
     background-color: white;
     border-radius: 15px;

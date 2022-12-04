@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import sql
 from django.conf import settings
 from django.http import HttpResponse , Http404
 from django.contrib.auth.forms import UserCreationForm
@@ -164,6 +165,10 @@ def addexaminations_output_person_addn_view(request):
         model=Disease_Model.objects.last()
     form=disease_form(request.POST)
     if form.is_valid():
+        if not form.cleaned_data['p_fathers_name']:
+            form.cleaned_data['p_fathers_name'] = 'None'
+        if not form.cleaned_data['p_personal_code']:
+            form.cleaned_data['p_personal_code'] = 0
         model.p_name=form.cleaned_data['p_name']
         model.p_fathers_name=form.cleaned_data['p_fathers_name']
         model.p_age=form.cleaned_data['p_age']
@@ -1100,6 +1105,10 @@ def addexaminations_view(request):
         new_person.user = username
         if new_person.age:
             new_person.age = 1401 - new_person.age
+        if not new_person.fathers_name:
+            new_person.fathers_name = 'None'
+        if not new_person.personal_code:
+            new_person.personal_code = 0
         new_person.save()
     if personal_species.is_valid() and  job_history.is_valid():
         new_job_history = job_history.save(commit=False)
@@ -1856,7 +1865,9 @@ def examinations_output_person_view(request):
         personal_species=Personal_Species_Model.objects.filter(name=model.p_name,age=1401 - model.p_age,fathers_name=model.p_fathers_name,personal_code=model.p_personal_code)
     else:
         personal_species = []
-    context={'form':form, 'personal_species' : personal_species , 'code_list' : code_list }
+    examination_course = ExaminationsCourse.objects.filter(examinations_code=code).last()
+    inputlist=Personal_Species_Model.objects.filter(examinations_code=examinations_course)
+    context={'form':form, 'personal_species' : personal_species , 'code_list' : code_list ,'inputlist' : inputlist}
     return render(request, 'examinations_output_person.html',context)
 
 
@@ -1978,6 +1989,10 @@ def examinations_output_edit_view(request):
     if personal_species.is_valid():
         new_person = personal_species.save(commit=False)
         new_person.user = username
+        if not new_person.fathers_name:
+            new_person.fathers_name = 'None'
+        if not new_person.personal_code:
+            new_person.personal_code = 0
         new_person.save()
     if personal_species.is_valid() and  job_history.is_valid():
         new_job_history = job_history.save(commit=False)
@@ -2606,7 +2621,9 @@ def examinations_output_edit_view(request):
         new_final_theory = final_theory.save(commit=False)
         new_final_theory.person = new_person
         new_final_theory.save() 
-    context={ 'code_list' : code_list ,'form' : form ,'personal_species' : personal_species , 'job_history' : job_history , 'assessment' : assessment, 'personal_history' : personal_history, 'examinations' : examinations, 'experiments' : experiments, 'para_clinic' : para_clinic, 'consulting' : consulting , 'final_theory' : final_theory }
+    examination_course = ExaminationsCourse.objects.filter(examinations_code=code).last()
+    inputlist=Personal_Species_Model.objects.filter(examinations_code=examinations_course)
+    context={ 'inputlist':inputlist ,'code_list' : code_list ,'form' : form ,'personal_species' : personal_species , 'job_history' : job_history , 'assessment' : assessment, 'personal_history' : personal_history, 'examinations' : examinations, 'experiments' : experiments, 'para_clinic' : para_clinic, 'consulting' : consulting , 'final_theory' : final_theory }
     return render(request, 'edit_examinations.html',context)
 
 
@@ -2631,4 +2648,16 @@ def examinations_output_edit_add_view(request):
         model.e_age=form.cleaned_data['e_age']
         model.e_personal_code=form.cleaned_data['e_personal_code']
         model.save()
+        print ('adf')
+    return redirect('examinations_output_edit')
+
+@require_POST
+def examinations_output_edit_delete_view(request):
+    model=Disease_Model.objects.last()
+    code=model.examinations_code
+    examinations_course = ExaminationsCourse.objects.filter(examinations_code=code).last()
+    qs=Personal_Species_Model.objects.filter(examinations_code=examinations_course)
+    print (qs)
+    print ('adf')
+    qs.delete()
     return redirect('examinations_output_edit')

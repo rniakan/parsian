@@ -56,7 +56,7 @@ class Personal_Species_Model(models.Model):
     fathers_name = models.CharField(max_length=250, null=True, blank=True)
     gender_CHOICES = [('mard', 'مرد'), ('zan', 'زن')]
     gender = models.CharField(default='mard', choices=gender_CHOICES, max_length=250, null=True, blank=True)
-    marriage_status_CHOICES = [('mojarad', 'مجرد'), ('motahel', 'متاحل')]
+    marriage_status_CHOICES = [('mojarad', 'مجرد'), ('motahel', 'متاهل')]
     marriage_status = models.CharField(default='mojarad', choices=marriage_status_CHOICES,  max_length=250, null=True, blank=True)
     children = models.IntegerField(null=True, blank=True)
     age = models.IntegerField(default=None, null=True, blank=True)
