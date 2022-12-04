@@ -50,7 +50,7 @@ class disease_form(forms.ModelForm):
         ,'e_age' : forms.NumberInput(attrs={'style':'width : 100px','autocomplete': 'off','list':'age'})
         ,'e_name' : forms.TextInput(attrs={'class':'text','autocomplete': 'off','list':'name'})
         ,'e_fathers_name' : forms.TextInput(attrs={'class':'text','autocomplete': 'off','list':'fathers_name'})
-        ,'e_personal_code' : forms.NumberInput(attrs={'class':'personal_w','autocomplete': 'off','list':'persona_code'})
+        ,'e_personal_code' : forms.NumberInput(attrs={'class':'personal_w','autocomplete': 'off','list':'personal_code'})
         ,'e_examinations_code' : forms.TextInput(attrs={'autocomplete': 'off','list':'examinations_code'})
         }  
 

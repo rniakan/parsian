@@ -91,7 +91,7 @@
                 {{ form.e_age }}
                 <datalist id='age'>
                     {% for item in inputlist %}
-                    <option value='{{ item.age }}'><o/ption>
+                    <option value='{{ 1401|sub:item.age }}'><o/ption>
                     {% endfor %}
                 </datalist>
             </div>
@@ -2118,12 +2118,13 @@
             <div class='col'>
                 <input type="submit" value="ذخیره و ثبت جدید">
             </div>
-            <div class='col'>
-                <form action='{% url 'delete' %}' method='POST'>
-                    <div class='b-red'>
-                        <input class='b-red' type="submit" value='حذف'>
-                    </div>
-                </form>
+        </div>
+    </form>
+    <form action='{% url 'delete' %}' method='POST'>
+        {% csrf_token %}
+        <div class='row text-center mt-4'>
+            <div class='col red'>
+                <input class='red' type="submit" value='حذف'>
             </div>
         </div>
     </form>

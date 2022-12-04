@@ -1967,7 +1967,7 @@ def examinations_output_edit_view(request):
         code=''
         
     examinations_course = ExaminationsCourse.objects.filter(examinations_code=model.examinations_code).last()
-    personal_species_m=Personal_Species_Model.objects.filter(name=model.p_name,age=1401 - model.p_age,fathers_name=model.p_fathers_name,personal_code=model.p_personal_code,examinations_code=examinations_course).last()
+    personal_species_m=Personal_Species_Model.objects.filter(name=model.e_name,age=1401 - model.e_age,fathers_name=model.e_fathers_name,personal_code=model.e_personal_code,examinations_code=examinations_course).last()
     job_history_m=Job_History_Model.objects.filter(person=personal_species_m).last()
     assessment_m=Assessment_Model.objects.filter(person=personal_species_m).last()
     personal_history_m=Personal_History_Model.objects.filter(person=personal_species_m).last()
@@ -2642,13 +2642,16 @@ def examinations_output_edit_add_view(request):
         model=Disease_Model.objects.last()
     form=disease_form(request.POST)
     if form.is_valid():
+        if not form.cleaned_data['e_fathers_name']:
+            form.cleaned_data['e_fathers_name'] = 'None'
+        if not form.cleaned_data['e_personal_code']:
+            form.cleaned_data['e_personal_code'] = 0
         model.e_examinations_code=form.cleaned_data['e_examinations_code']
         model.e_name=form.cleaned_data['e_name']
         model.e_fathers_name=form.cleaned_data['e_fathers_name']
         model.e_age=form.cleaned_data['e_age']
         model.e_personal_code=form.cleaned_data['e_personal_code']
         model.save()
-        print ('adf')
     return redirect('examinations_output_edit')
 
 @require_POST
@@ -2656,8 +2659,6 @@ def examinations_output_edit_delete_view(request):
     model=Disease_Model.objects.last()
     code=model.examinations_code
     examinations_course = ExaminationsCourse.objects.filter(examinations_code=code).last()
-    qs=Personal_Species_Model.objects.filter(examinations_code=examinations_course)
-    print (qs)
-    print ('adf')
+    qs=Personal_Species_Model.objects.filter(name=model.e_name,age=1401 - model.e_age,fathers_name=model.e_fathers_name,personal_code=model.e_personal_code,examinations_code=examinations_course).last()
     qs.delete()
     return redirect('examinations_output_edit')
