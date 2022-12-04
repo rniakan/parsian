@@ -1858,15 +1858,9 @@ def examinations_output_person_view(request):
         code_list=Personal_Species_Model.objects.filter(name=model.p_name,age=1401 - model.p_age,fathers_name=model.p_fathers_name,personal_code=model.p_personal_code)
     else:
         code_list=[]
-    if model.p_examinations_code != 'all' and model.p_examinations_code:
-        examinations_course = ExaminationsCourse.objects.filter(examinations_code=code).last()
-        personal_species=Personal_Species_Model.objects.filter(name=model.p_name,age=1401 - model.p_age,fathers_name=model.p_fathers_name,personal_code=model.p_personal_code,examinations_code=examinations_course)
-    elif model.p_age and model.p_examinations_code == 'all':
-        personal_species=Personal_Species_Model.objects.filter(name=model.p_name,age=1401 - model.p_age,fathers_name=model.p_fathers_name,personal_code=model.p_personal_code)
-    else:
-        personal_species = []
-    examination_course = ExaminationsCourse.objects.filter(examinations_code=code).last()
-    inputlist=Personal_Species_Model.objects.filter(examinations_code=examination_course)
+    examinations_course = ExaminationsCourse.objects.filter(examinations_code=code).last()
+    personal_species=Personal_Species_Model.objects.filter(name=model.p_name,age=1401 - model.p_age,fathers_name=model.p_fathers_name,personal_code=model.p_personal_code,examinations_code=examinations_course)
+    inputlist=Personal_Species_Model.objects.filter(examinations_code=examinations_course)
     context={'form':form, 'personal_species' : personal_species , 'code_list' : code_list ,'inputlist' : inputlist}
     return render(request, 'examinations_output_person.html',context)
 
@@ -2621,8 +2615,7 @@ def examinations_output_edit_view(request):
         new_final_theory = final_theory.save(commit=False)
         new_final_theory.person = new_person
         new_final_theory.save() 
-    examination_course = ExaminationsCourse.objects.filter(examinations_code=code).last()
-    inputlist=Personal_Species_Model.objects.filter(examinations_code=examination_course)
+    inputlist=Personal_Species_Model.objects.filter(examinations_code=examinations_course)
     context={ 'inputlist':inputlist ,'code_list' : code_list ,'form' : form ,'personal_species' : personal_species , 'job_history' : job_history , 'assessment' : assessment, 'personal_history' : personal_history, 'examinations' : examinations, 'experiments' : experiments, 'para_clinic' : para_clinic, 'consulting' : consulting , 'final_theory' : final_theory }
     return render(request, 'edit_examinations.html',context)
 
