@@ -1857,7 +1857,7 @@ def examinations_output_person_view(request):
     examinations_course = ExaminationsCourse.objects.filter(examinations_code=code).last()
     personal_species=Personal_Species_Model.objects.filter(name=model.p_name,age=1401 - model.p_age,fathers_name=model.p_fathers_name,personal_code=model.p_personal_code,examinations_code=examinations_course)
     inputlist=Personal_Species_Model.objects.filter(examinations_code=examinations_course)
-    context={'form':form, 'personal_species' : personal_species , 'code_list' : code_list ,'inputlist' : inputlist}
+    context={'form':form, 'personal_species' : personal_species ,'inputlist' : inputlist}
     return render(request, 'examinations_output_person.html',context)
 
 
