@@ -1866,7 +1866,7 @@ def examinations_output_person_view(request):
     else:
         personal_species = []
     examination_course = ExaminationsCourse.objects.filter(examinations_code=code).last()
-    inputlist=Personal_Species_Model.objects.filter(examinations_code=examinations_course)
+    inputlist=Personal_Species_Model.objects.filter(examinations_code=examination_course)
     context={'form':form, 'personal_species' : personal_species , 'code_list' : code_list ,'inputlist' : inputlist}
     return render(request, 'examinations_output_person.html',context)
 
@@ -2622,7 +2622,7 @@ def examinations_output_edit_view(request):
         new_final_theory.person = new_person
         new_final_theory.save() 
     examination_course = ExaminationsCourse.objects.filter(examinations_code=code).last()
-    inputlist=Personal_Species_Model.objects.filter(examinations_code=examinations_course)
+    inputlist=Personal_Species_Model.objects.filter(examinations_code=examination_course)
     context={ 'inputlist':inputlist ,'code_list' : code_list ,'form' : form ,'personal_species' : personal_species , 'job_history' : job_history , 'assessment' : assessment, 'personal_history' : personal_history, 'examinations' : examinations, 'experiments' : experiments, 'para_clinic' : para_clinic, 'consulting' : consulting , 'final_theory' : final_theory }
     return render(request, 'edit_examinations.html',context)
 
