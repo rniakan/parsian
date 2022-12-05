@@ -1,0 +1,2125 @@
+{% extends 'article/base.html' %}
+{% load static %}
+{% block content %}
+<section class="b-green">
+    <div>
+        <div class="container">
+            <div class="row text-center">
+                <div class="col">
+                    معاینات
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<svg id="wave" style="transform:rotate(180deg); transition: 0.3s" viewBox="0 0 1440 100" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
+            <stop stop-color="rgba(127, 255, 0, 1)" offset="0%"></stop>
+            <stop stop-color="rgba(127, 255, 0, 1)" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)"
+          d="M0,30L80,38.3C160,47,320,63,480,60C640,57,800,33,960,25C1120,17,1280,23,1440,31.7C1600,40,1760,50,1920,51.7C2080,53,2240,47,2400,50C2560,53,2720,67,2880,61.7C3040,57,3200,33,3360,25C3520,17,3680,23,3840,30C4000,37,4160,43,4320,46.7C4480,50,4640,50,4800,55C4960,60,5120,70,5280,68.3C5440,67,5600,53,5760,53.3C5920,53,6080,67,6240,66.7C6400,67,6560,53,6720,55C6880,57,7040,73,7200,66.7C7360,60,7520,30,7680,28.3C7840,27,8000,53,8160,68.3C8320,83,8480,87,8640,88.3C8800,90,8960,90,9120,76.7C9280,63,9440,37,9600,25C9760,13,9920,17,10080,20C10240,23,10400,27,10560,25C10720,23,10880,17,11040,25C11200,33,11360,57,11440,68.3L11520,80L11520,100L11440,100C11360,100,11200,100,11040,100C10880,100,10720,100,10560,100C10400,100,10240,100,10080,100C9920,100,9760,100,9600,100C9440,100,9280,100,9120,100C8960,100,8800,100,8640,100C8480,100,8320,100,8160,100C8000,100,7840,100,7680,100C7520,100,7360,100,7200,100C7040,100,6880,100,6720,100C6560,100,6400,100,6240,100C6080,100,5920,100,5760,100C5600,100,5440,100,5280,100C5120,100,4960,100,4800,100C4640,100,4480,100,4320,100C4160,100,4000,100,3840,100C3680,100,3520,100,3360,100C3200,100,3040,100,2880,100C2720,100,2560,100,2400,100C2240,100,2080,100,1920,100C1760,100,1600,100,1440,100C1280,100,1120,100,960,100C800,100,640,100,480,100C320,100,160,100,80,100L0,100Z"></path>
+</svg>
+<section class='container'>
+    <form action='{% url 'addexaminations' %}' method='POST'>
+        <div class='row text-center mb-4'>
+            <div class='col-1'>
+                <a href='{% url 'submit_course' %}' class="nav-link text-dark text-center green-page">قبل</a>
+            </div>
+            <div class='col'>
+                {% csrf_token %}
+                <lable>کد دوره معاینات:</lable>
+                {{ personal_species.examinations_code }}
+            </div>
+            <div class='col-1'>
+            </div>
+        </div>
+        <div class='row text-center mb-4'>
+            <div class='col'>
+                به نام خدا
+            </div>
+        </div>
+        <div class='row text-center'>
+            <table>
+                <tr>
+                    <td rowspan='4' width=30%><img src="{% static 'images/examination2.png' %}" style="height: 80px;width: 150px;">
+                    </td>
+                    <td width=17%>نوع معاینات</td>
+                    <td>{{ personal_species.examinations_type }}</td>
+                    <td rowspan='4' width=17%>محل الصاق عکس</td>
+                </tr>
+                <tr>
+                    <td width=17%>تاریخ</td>
+                    <td>{{ personal_species.species_date_day }}/{{ personal_species.species_date_month }}/{{ personal_species.species_date_year }}</td>
+                </tr>
+                <tr>
+                    <td width=17%>شماره پرونده</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td width=17%>شماره استخدامی شاغل</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div class='row mt-4 b-green'>
+            <div class='col'>
+                1-مشخصات فردی شاغل
+            </div>
+        </div>
+        <div class='row mt-4 text-center'>
+            <div class='col'>
+                <lable>نام و نام خانوادگی:</lable>
+                {{ personal_species.name }}
+            </div>
+            <div class='col'>
+                <lable>نام پدر:</lable>
+                {{ personal_species.fathers_name }}
+            </div>
+            <div class='col'>
+                <lable>جنسیت:</lable>
+                {{ personal_species.gender }}
+            </div>
+        </div>
+        <div class='row text-center mt-4'>
+            <div class='col'>
+                <lable>وضعیت تاهل:</lable>
+                {{ personal_species.marriage_status }}
+            </div>
+            <div class='col'>
+                <lable>تعداد فرزندان:</lable>
+                {{ personal_species.children }}
+            </div>
+            <div class='col'>
+                <lable>سال تولد:</lable>
+                {{ personal_species.age }}
+            </div>
+            <div class='col'>
+                <lable>کد ملی:</lable>
+                {{ personal_species.personal_code }}
+            </div>
+        </div>
+        <div class='row text-center mt-4'>
+            <div class='col'>
+                <lable>وضعیت نظام وظیفه:</lable>
+                {{ personal_species.military_status }}
+            </div>
+            <div class='col'>
+                <lable>رسته خدمت:</lable>
+                {{ personal_species.raste }}
+            </div>
+            <div class='col'>
+                <lable>معافیت </lable>
+                {{ personal_species.medical_exemption }}
+            </div>
+        </div>
+        <div class='row text-center mt-4'>
+            <div class='col'>
+                <lable>علت معافیت :</lable>
+                {{ personal_species.medical_exemption_reason }}
+            </div>
+            <div class='col'>
+                <lable>نام واحد کاری:</lable>
+                {{ personal_species.job_name }}
+            </div>
+            <div class='col'>
+                <lable>نام کارفرما:</lable>
+                {{ personal_species.employer_name }}
+            </div>
+        </div>
+        <div class='row mt-4'>
+            <div class='col'>
+                <lable>آدرس و تلفن محل کار:</lable>
+                {{ personal_species.address }}
+            </div>
+        </div>
+        <div class='row mt-4 b-green'>
+            <div class='col'>
+                2-سوابق شغلی
+            </div>
+        </div>
+        <div class='row text-center'>
+            <table>
+                <tr>
+                    <td rowspan='4'>مشاغل فعلی</td>
+                    <td rowspan='2'>عنوان/سمت</td>
+                    <td rowspan='2'>وظیفه محوله</td>
+                    <td colspan='2'>تاریخ اشتغال</td>
+                    <td rowspan='2'>علت تغییر شغل</td>
+                </tr>
+                <tr>
+                    <td>از</td>
+                    <td>تا</td>
+                </tr>
+                <tr>
+                    <td>{{ job_history.current_job }}</td>
+                    <td>{{ job_history.current_job_duty }}</td>
+                    <td>
+                        {{ job_history.current_job_from_month }}/
+                        {{ job_history.current_job_from_year }}
+                    </td>
+                    <td>
+                        {{ job_history.current_job_to_month }}/
+                        {{ job_history.current_job_to_year }}
+                    </td>
+                </tr>
+                <tr style = 'height : 32.5px'>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr style = 'height : 32.5px'>
+                    <td rowspan='2' >مشاغل قبلی</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr style = 'height : 32.5px'>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div class='row b-green'>
+            <div class='col'>
+                3-ارزیابی عوامل زیان آور شغلی:
+            </div>
+        </div>
+        <div class='row'>
+            <table>
+                <tr class='text-center'>
+                    <th width=10%></th>
+                    <th>فیزیکی</th>
+                    <th>شیمیایی</th>
+                    <th>بیولوژیک</th>
+                    <th>ارگونومی</th>
+                    <th>روانی</th>
+                </tr>
+                <tr>
+                    <td width=10%>مشاغل فعلی</td>
+                    <td>
+                        <div>
+                            {{ assessment.current_ph_noise }}
+                            <lable>سر و صدا</lable>                           
+                        </div>
+                        <div>
+                            {{ assessment.current_ph_erteash }}
+                            <lable>ارتعاش</lable>                           
+                        </div>
+                        <div>
+                            {{ assessment.current_ph_not_unizan }}
+                            <lable>اشعه غیر یونیزان</lable>                            
+                        </div>
+                        <div>
+                            {{ assessment.current_ph_unizan }}
+                            <lable>اشعه یونیزان</lable>          
+                        </div>
+                        <div>
+                            {{ assessment.current_ph_stress }}
+                            <lable>استرس حرارتی</lable>                         
+                        </div>
+                        <div>
+                            {{ assessment.current_ph_other }}
+                            <lable>سایر</lable>                      
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{ assessment.current_sh_dust }}
+                            <lable>گرد و غبار</lable>                      
+                        </div>
+                        <div>
+                            {{ assessment.current_sh_metals }}
+                            <lable>دمه فلزات</lable>                       
+                        </div>
+                        <div>
+                            {{ assessment.current_sh_halal }}
+                            <lable>حلال</lable>                        
+                        </div>
+                        <div>
+                            {{ assessment.current_sh_afat }}
+                            <lable>آفت کشها</lable>                            
+                        </div>
+                        <div>
+                            {{ assessment.current_sh_asidvbaz }}
+                            <lable>اسید و بازها</lable>              
+                        </div>
+                        <div>
+                            {{ assessment.current_sh_gaz }}
+                            <lable>گاز ها</lable>                        
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{ assessment.current_bio_gazesh }}
+                            <lable>گزش</lable>                         
+                        </div>
+                        <div>
+                            {{ assessment.current_bio_bactery }}
+                            <lable>باکتری</lable>                         
+                        </div>
+                        <div>
+                            {{ assessment.current_bio_virus }}
+                            <lable>ویروس</lable>                            
+                        </div>
+                        <div>
+                            {{ assessment.current_bio_angal }}
+                            <lable>انگل</lable>                           
+                        </div>
+                        <div>
+                            {{ assessment.current_bio_other }}
+                            <lable>سایر</lable>                           
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{ assessment.current_er_standvsit }}
+                            <lable>ایستادن یا نشستن طولانی مدت</lable>                            
+                        </div>
+                        <div>
+                            {{ assessment.current_er_loop }}
+                            <lable>کار تکراری</lable>                            
+                        </div>
+                        <div>
+                            {{ assessment.current_er_hamlvnaghl }}
+                            <lable>حمل و نقل بار سنگین</lable>                           
+                        </div>
+                        <div>
+                            {{ assessment.current_er_vaziat_namonaseb }}
+                            <lable>وضعیت نامناسب بدن</lable>                            
+                        </div>
+                        <div>
+                            {{ assessment.current_er_other }}
+                            <lable>سایر</lable>                           
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{ assessment.current_rav_order }}
+                            <lable>نوبت کاری</lable>                           
+                        </div>
+                        <div>
+                            {{ assessment.current_rav_stressor }}
+                            <lable>استرسور های شغلی</lable>       
+                        </div>
+                        <div>
+                            {{ assessment.current_rav_other }}
+                            <lable>سایر</lable>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width=10% >مشاغل قبلی</td>
+                    <td>
+                        <div>
+                            {{ assessment.previous_ph_noise }}
+                            <lable>سر و صدا</lable>                           
+                        </div>
+                        <div>
+                            {{ assessment.previous_ph_erteash }}
+                            <lable>ارتعاش</lable>                           
+                        </div>
+                        <div>
+                            {{ assessment.previous_ph_not_unizan }}
+                            <lable>اشعه غیر یونیزان</lable>                            
+                        </div>
+                        <div>
+                            {{ assessment.previous_ph_unizan }}
+                            <lable>اشعه یونیزان</lable>          
+                        </div>
+                        <div>
+                            {{ assessment.previous_ph_stress }}
+                            <lable>استرس حرارتی</lable>                         
+                        </div>
+                        <div>
+                            {{ assessment.previous_ph_other }}
+                            <lable>سایر</lable>                      
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{ assessment.previous_sh_dust }}
+                            <lable>گرد و غبار</lable>                      
+                        </div>
+                        <div>
+                            {{ assessment.previous_sh_metals }}
+                            <lable>دمه فلزات</lable>                       
+                        </div>
+                        <div>
+                            {{ assessment.previous_sh_halal }}
+                            <lable>حلال</lable>                        
+                        </div>
+                        <div>
+                            {{ assessment.previous_sh_afat }}
+                            <lable>آفت کشها</lable>                            
+                        </div>
+                        <div>
+                            {{ assessment.previous_sh_asidvbaz }}
+                            <lable>اسید و بازها</lable>              
+                        </div>
+                        <div>
+                            {{ assessment.previous_sh_gaz }}
+                            <lable>گاز ها</lable>                        
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{ assessment.previous_bio_gazesh }}
+                            <lable>گزش</lable>                         
+                        </div>
+                        <div>
+                            {{ assessment.previous_bio_bactery }}
+                            <lable>باکتری</lable>                         
+                        </div>
+                        <div>
+                            {{ assessment.previous_bio_virus }}
+                            <lable>ویروس</lable>                            
+                        </div>
+                        <div>
+                            {{ assessment.previous_bio_angal }}
+                            <lable>انگل</lable>                           
+                        </div>
+                        <div>
+                            {{ assessment.previous_bio_other }}
+                            <lable>سایر</lable>                           
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{ assessment.previous_er_standvsit }}
+                            <lable>ایستادن یا نشستن طولانی مدت</lable>                            
+                        </div>
+                        <div>
+                            {{ assessment.previous_er_loop }}
+                            <lable>کار تکراری</lable>                            
+                        </div>
+                        <div>
+                            {{ assessment.previous_er_hamlvnaghl }}
+                            <lable>حمل و نقل بار سنگین</lable>                           
+                        </div>
+                        <div>
+                            {{ assessment.previous_er_vaziat_namonaseb }}
+                            <lable>وضعیت نامناسب بدن</lable>                            
+                        </div>
+                        <div>
+                            {{ assessment.previous_er_other }}
+                            <lable>سایر</lable>                           
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{ assessment.previous_rav_order }}
+                            <lable>نوبت کاری</lable>                           
+                        </div>
+                        <div>
+                            {{ assessment.previous_rav_stressor }}
+                            <lable>استرسور های شغلی</lable>       
+                        </div>
+                        <div>
+                            {{ assessment.previous_rav_other }}
+                            <lable>سایر</lable>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan='6'>توضیحات لازم در خصوص موارد ثبت شده در جدول و ثبت نتایج اندازه گیری ها:{{ assessment.required_description }}</td>
+                </tr>
+                <tr>
+                    <td colspan='6'>کارشناسی بهداشت حرفه ای در خصوص شرایط محیط کار:{{ assessment.kar_shenas }}</td>
+                </tr>
+                <tr>
+                    <td colspan='6'>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                نام و نام خانوادگی کارشناس بهداشت حرفه ای:{{ assessment.kar_shenas_name }}
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col'>
+                                تاریخ:{{ assessment.ass_date_day }}/{{ assessment.ass_date_month }}/{{ assessment.ass_date_year }}
+                            </div>
+                            <div class='col'>
+                                مهر و امضا:
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div> 
+        <div class='row text-center mt-5'>
+            <div class='col'>
+                نام و نام خانوادگی:{{ personal_history.name }}
+            </div>
+        </div>
+        <div class='row b-green'>
+            <div class='col'>
+                4-سابقه شخصی,خانوادگی و پزشکی:(بر اساس پاسخ شاغل تکمیل شود)
+            </div>
+        </div>
+        <div class='row'>
+            <table>
+                <tr class='text-center'>
+                    <th width=3%>ردیف</th>
+                    <th width=35%>سوال</th>
+                    <th width=3%>بلی</th>
+                    <th width=3%>خیر</th>
+                    <th>توضیحات</th>
+                </tr>
+                <tr id='checkboxes1'>
+                    <td class='text-center'>1</td>
+                    <td>آیا سابقه بیماری دارید؟ذکر نمایید.</td>
+                    <td class='text-center'>{{ personal_history.first_y }}</td>
+                    <td class='text-center'>{{ personal_history.first_n }}</td>
+                    <td>{{ personal_history.first_des }}</td>
+                </tr>
+                <tr id='checkboxes2'>
+                    <td class='text-center'>2</td>
+                    <td>در صورت ابتلا به بیماری آیا علایم شما در محیط کار تغییر می کند؟</td>
+                    <td class='text-center'></td>
+                    <td class='text-center'></td>
+                    <td>{{ personal_history.second_des }}</td>
+                </tr>
+                <tr id='checkboxes3'>
+                    <td class='text-center'>3</td>
+                    <td>در صورت ابتلا به بیماری آیا همکاران شما علایم مشابه در محل کار دارند؟</td>
+                    <td class='text-center'></td>
+                    <td class='text-center'></td>
+                    <td>{{ personal_history.third_des }}</td>
+                </tr>
+                <tr id='checkboxes4'>
+                    <td class='text-center'>4</td>
+                    <td>در صورت ابتلا به بیماری آیا علایم شما در زمان تعطیلات و مرخصی ها تغییر می کند؟</td>
+                    <td class='text-center'></td>
+                    <td class='text-center'></td>
+                    <td>{{ personal_history.fourth_des }}</td>
+                </tr>
+                <tr id='checkboxes5'>
+                    <td class='text-center'>5</td>
+                    <td>آیا به غذا,دارو یا ماده خاصی حساسیت دارید؟</td>
+                    <td class='text-center'>{{ personal_history.fifth_y }}</td>
+                    <td class='text-center'>{{ personal_history.fifth_n }}</td>
+                    <td>{{ personal_history.fifth_des }}</td>
+                </tr>
+                <tr id='checkboxes6'>
+                    <td class='text-center'>6</td>
+                    <td>آیا سابقه بستری در بیمارستان دارید؟به چه دلیل؟</td>
+                    <td class='text-center'>{{ personal_history.sixth_y }}</td>
+                    <td class='text-center'>{{ personal_history.sixth_n }}</td>
+                    <td>{{ personal_history.sixth_des }}</td>
+                </tr>
+                <tr id='checkboxes7'>
+                    <td class='text-center'>7</td>
+                    <td>آیا سابقه عمل جراحی دارید؟ذکر نمایید</td>
+                    <td class='text-center'>{{ personal_history.seventh_y }}</td>
+                    <td class='text-center'>{{ personal_history.seventh_n }}</td>
+                    <td>{{ personal_history.seventh_des }}</td>
+                </tr>
+                <tr id='checkboxes8'>
+                    <td class='text-center'>8</td>
+                    <td>آیا سابقه سرطان یا بیماری مزمن در فامیل دارید؟ذکر نمایید</td>
+                    <td class='text-center'>{{ personal_history.eighth_y }}</td>
+                    <td class='text-center'>{{ personal_history.eighth_n }}</td>
+                    <td>{{ personal_history.eighth_des }}</td>
+                </tr>
+                <tr id='checkboxes9'>
+                    <td class='text-center'>9</td>
+                    <td>آیا دارو خاصی مصرف می کنید؟ذکر کنید.</td>
+                    <td class='text-center'>{{ personal_history.ninth_y }}</td>
+                    <td class='text-center'>{{ personal_history.ninth_n }}</td>
+                    <td>{{ personal_history.ninth_des }}</td>
+                </tr>
+                <tr id='checkboxes10'>
+                    <td class='text-center'>10</td>
+                    <td>آیا اکنون سیگار می کشید؟</td>
+                    <td class='text-center'>{{ personal_history.tenth_y }}</td>
+                    <td class='text-center'>{{ personal_history.tenth_n }}</td>
+                    <td>
+                        <div class='row'>
+                            <div class='col'>
+                                تعداد نخ روزانه:{{ personal_history.tenth_des_number }}
+                            </div>
+                            <div class='col'>
+                                مدت استعمال:{{ personal_history.tenth_des_duration }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr id='checkboxes11'>
+                    <td class='text-center'>11</td>
+                    <td>آیا سابقه قبلی مصرف سیگار دارید؟</td>
+                    <td class='text-center'>{{ personal_history.eleventh_y }}</td>
+                    <td class='text-center'>{{ personal_history.eleventh_n }}</td>
+                    <td>
+                        <div class='row'>
+                            <div class='col'>
+                                تعداد نخ روزانه:{{ personal_history.eleventh_des_number }}
+                            </div>
+                            <div class='col'>
+                                مدت استعمال:{{ personal_history.eleventh_des_duration }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr id='checkboxes12'>
+                    <td class='text-center'>12</td>
+                    <td>آیا در اوقات فراغت به ورزش یا سرگرمی خاصی مشغول هستید؟ذکر کنید.</td>
+                    <td class='text-center'>{{ personal_history.twelfth_y }}</td>
+                    <td class='text-center'>{{ personal_history.twelfth_n }}</td>
+                    <td>{{ personal_history.twelfth_des }}</td>
+                </tr>
+                <tr id='checkboxes13'>
+                    <td class='text-center'>13</td>
+                    <td>آیا تا کنون به حادثه شغلی دچار شده اید؟</td>
+                    <td class='text-center'>{{ personal_history.thirteenth_y }}</td>
+                    <td class='text-center'>{{ personal_history.thirteenth_n }}</td>
+                    <td>
+                        <div class='row'>
+                            <div class='col'>
+                                نوع آسیب:{{ personal_history.thirteenth_des_type }}
+                            </div>
+                            <div class='col'>
+                                علت:{{ personal_history.thirteenth_des_reason }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr id='checkboxes14'>
+                    <td class='text-center'>14</td>
+                    <td>آیا سابقه غیبت از کار به دلیل بیماری بیش از 3 روز دارید؟</td>
+                    <td class='text-center'>{{ personal_history.fourteenth_y }}</td>
+                    <td class='text-center'>{{ personal_history.fourteenth_n }}</td>
+                    <td>{{ personal_history.fourteenth_des }}</td>
+                </tr>
+                <tr id='checkboxes15'>
+                    <td class='text-center'>15</td>
+                    <td>آیا منزل شما در مجاورت مرکز صنعتی قرار دارد؟</td>
+                    <td class='text-center'>{{ personal_history.fifteenth_y }}</td>
+                    <td class='text-center'>{{ personal_history.fifteenth_n }}</td>
+                    <td>{{ personal_history.fifteenth_des }}</td>
+                </tr>
+                <tr id='checkboxes16'>
+                    <td class='text-center'>16</td>
+                    <td>آیا سابقه معرفی به کمیسیون پزشکی را دارید؟</td>
+                    <td class='text-center'>{{ personal_history.sixteenth_y }}</td>
+                    <td class='text-center'>{{ personal_history.sixteenth_n }}</td>
+                    <td>{{ personal_history.sixteenth_des }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class='row text-center'>
+            <div class='col'>
+                امضا و اثر انگشت شاغل مبنی بر تایید اظهارات فوق:
+            </div>
+        </div>
+        <div class='row b-green mt-5'>
+            <div class='col'>
+                5-معاینات:
+            </div>
+        </div>
+        <div class='row text-center'>
+            <div class='col'>
+                تاریخ:{{ examinations.exa_date_day }}/{{ examinations.exa_date_month }}/{{ examinations.exa_date_year }}
+            </div>
+            <div class='col'>
+                وزن(kg):{{ examinations.weight }}
+            </div>
+            <div class='col'>
+                فشار خون(mmHg):{{ examinations.blood_pressure }}
+            </div>
+        </div>
+        <div class='row text-center'>
+            <div class='col'>
+                
+            </div>
+            <div class='col'>
+                قد(Cm):{{ examinations.length }}
+            </div>
+            <div class='col'>
+                تعداد نبض(در دقیقه):{{ examinations.pulse }}
+            </div>
+        </div>
+        <div class='row text-center mt-1'>
+            <table class='thetable'>
+                <tr>
+                    <th>بررسی ارگان ها</th>
+                    <th colspan='2'>در صورت وجود هریک ازین موارد زیردر محل مربوط علامت زده و خصوصیات.شدت و مدت زمان نشانه یا علامت در بخش توضیحات درج شود</th>
+                </tr>
+                <tr>
+                    <td rowspan='3'>عمومی</td>
+                    <td> Symptom</td>
+                    <td> 
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>کاهش وزن</lable>
+                                {{ examinations.local_sym_kahesh_vazn }}
+                            </div>
+                            <div class='col'>
+                                <lable>کاهش اشتها</lable>
+                                {{ examinations.local_sym_kahesh_eshteha }}
+                            </div>
+                            <div class='col'>
+                                <lable>خستگی مزمن</lable>
+                                {{ examinations.local_sym_khastegi }}
+                            </div>
+                            <div class='col'>
+                                <lable>اختلال در خواب</lable>
+                                {{ examinations.local_sym_ekhtelal_dar_khab }}
+                            </div>
+                            <div class='col'>
+                                <lable>تعریق بیش از حد</lable>
+                                {{ examinations.local_sym_tarigh }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>عدم تحمل گرما و سرما</lable>
+                                {{ examinations.local_sym_adam_tahamol }}
+                            </div>
+                            <div class='col'>
+                                <lable>تب</lable>
+                                {{ examinations.local_sym_tab }}
+                            </div>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.local_sym_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون علامت</lable>
+                                {{ examinations.local_sym_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>sign</td>
+                    <td>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>وضعیت ظاهری(toxic/ill)</lable>
+                                {{ examinations.local_sign_zaheri }}
+                            </div>
+                            <div class='col'>
+                                <lable>مخاطات رنگ پریده</lable>
+                                {{ examinations.local_sign_rang_paride }}
+                            </div>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.local_sign_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون نشانه</lable>
+                                {{ examinations.local_sign_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>توضیحات</td>
+                    <td>{{ examinations.local_des }}</td>
+                </tr>
+                <tr>
+                    <td rowspan='3'>چشم</td>
+                    <td> Symptom</td>
+                    <td> 
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>کاهش حد بینایی</lable>
+                                {{ examinations.eye_sym_kahesh_binayi }}
+                            </div>
+                            <div class='col'>
+                                <lable>تاری دید</lable>
+                                {{ examinations.eye_sym_tari_did }}
+                            </div>
+                            <div class='col'>
+                                <lable>خستگی چشم</lable>
+                                {{ examinations.eye_sym_khastegi }}
+                            </div>
+                            <div class='col'>
+                                <lable>دوبینی</lable>
+                                {{ examinations.eye_sym_dobini }}
+                            </div>
+                            <div class='col'>
+                                <lable>سوزش چشم</lable>
+                                {{ examinations.eye_sym_sozesh }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>ترس از نور</lable>
+                                {{ examinations.eye_sym_tars_az_nor }}
+                            </div>
+                            <div class='col'>
+                                <lable>اشک ریزش</lable>
+                                {{ examinations.eye_sym_ashk }}
+                            </div>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.eye_sym_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون علامت</lable>
+                                {{ examinations.eye_sym_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>sign</td>
+                    <td>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>رفلکس غیر طبیعی مردمک</lable>
+                                {{ examinations.eye_sign_reflex }}
+                            </div>
+                            <div class='col'>
+                                <lable>قرمزی چشم</lable>
+                                {{ examinations.eye_sign_red }}
+                            </div>
+                            <div class='col'>
+                                <lable>اسکلرای ایکتریک</lable>
+                                {{ examinations.eye_sign_sklrai }}
+                            </div>
+                            <div class='col'>
+                                <lable>نیستاگموس</lable>
+                                {{ examinations.eye_sign_nistagemos }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.eye_sign_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون نشانه</lable>
+                                {{ examinations.eye_sign_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>توضیحات</td>
+                    <td>{{ examinations.eye_des }}</td>
+                </tr>
+                <tr>
+                    <td rowspan='3'>پوست,مو و ناخن</td>
+                    <td> Symptom</td>
+                    <td> 
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>خارش پوست</lable>
+                                {{ examinations.skin_sym_kharesh_post }}
+                            </div>
+                            <div class='col'>
+                                <lable>ریزش مو</lable>
+                                {{ examinations.skin_sym_rizesh_mo }}
+                            </div>
+                            <div class='col'>
+                                <lable>قرمزی پوست</lable>
+                                {{ examinations.skin_sym_red }}
+                            </div>
+                            <div class='col'>
+                                <lable>تغییر رنگ پوست</lable>
+                                {{ examinations.skin_sym_taghir_post }}
+                            </div>
+                            <div class='col'>
+                                <lable>زخم مزمن</lable>
+                                {{ examinations.skin_sym_zakhm }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>پوسته ریزی</lable>
+                                {{ examinations.skin_sym_poste_rizi }}
+                            </div>
+                            <div class='col'>
+                                <lable>تغییر رنگ ناخن</lable>
+                                {{ examinations.skin_sym_taghir_nakhon }}
+                            </div>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.skin_sym_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون علامت</lable>
+                                {{ examinations.skin_sym_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>sign</td>
+                    <td>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>ماکول</lable>
+                                {{ examinations.skin_sign_makol }}
+                            </div>
+                            <div class='col'>
+                                <lable>پاپول</lable>
+                                {{ examinations.skin_sign_papol }}
+                            </div>
+                            <div class='col'>
+                                <lable>ندول</lable>
+                                {{ examinations.skin_sign_nadol }}
+                            </div>
+                            <div class='col'>
+                                <lable>وزیکول</lable>
+                                {{ examinations.skin_sign_vezikol }}
+                            </div>
+                            <div class='col'>
+                                <lable>زخم</lable>
+                                {{ examinations.skin_sign_zakhm }}
+                            </div>
+                            <div class='col'>
+                                <lable>کهیر</lable>
+                                {{ examinations.skin_sign_kahir }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>کلابینگ</lable>
+                                {{ examinations.skin_sign_klabing }}
+                            </div>
+                            <div class='col'>
+                                <lable>ریزش منطقه ای مو</lable>
+                                {{ examinations.skin_sign_rizesh_mantaghe }}
+                            </div>
+                            <div class='col'>
+                                <lable>ریزش جنرال مو</lable>
+                                {{ examinations.skin_sign_rizesh_general }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>تغییرات پیگمانی</lable>
+                                {{ examinations.skin_sign_taghirat_peygmani }}
+                            </div>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.skin_sign_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون نشانه</lable>
+                                {{ examinations.skin_sign_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>توضیحات</td>
+                    <td>{{ examinations.skin_des }}</td>
+                </tr>
+                <tr>
+                    <td rowspan='3'>گوش,حلق,بینی و دهان</td>
+                    <td> Symptom</td>
+                    <td> 
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>کاهش شنوایی</lable>
+                                {{ examinations.gosh_sym_kahesh_shenavaii }}
+                            </div>
+                            <div class='col'>
+                                <lable>وزوز گوش</lable>
+                                {{ examinations.gosh_sym_vez_vez_gosh }}
+                            </div>
+                            <div class='col'>
+                                <lable>سرگیجه واقعی</lable>
+                                {{ examinations.gosh_sym_sargije }}
+                            </div>
+                            <div class='col'>
+                                <lable>درد گوش</lable>
+                                {{ examinations.gosh_sym_dard_gosh }}
+                            </div>
+                            <div class='col'>
+                                <lable>ترشح گوش</lable>
+                                {{ examinations.gosh_sym_tarashoh_gosh }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>گرفتگی صدا</lable>
+                                {{ examinations.gosh_sym_gereftegi_seda }}
+                            </div>
+                            <div class='col'>
+                                <lable>گلودرد</lable>
+                                {{ examinations.gosh_sym_galodard }}
+                            </div>
+                            <div class='col'>
+                                <lable>آبریزش بینی</lable>
+                                {{ examinations.gosh_sym_abrrizesh_bini }}
+                            </div>
+                            <div class='col'>
+                                <lable>اختلال بویایی</lable>
+                                {{ examinations.gosh_sym_ekhtelal_boyayi }}
+                            </div>
+                            <div class='col'>
+                                <lable>خارش و سوزش بینی</lable>
+                                {{ examinations.gosh_sym_khareshvsozesh }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>خونریزی بینی</lable>
+                                {{ examinations.gosh_sym_khonrizi }}
+                            </div>
+                            <div class='col'>
+                                <lable>خشکی دهان</lable>
+                                {{ examinations.gosh_sym_khoshki }}
+                            </div>
+                            <div class='col'>
+                                <lable>احساس مزه فلزی در دهان</lable>
+                                {{ examinations.gosh_sym_ehsas }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.gosh_sym_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون علامت</lable>
+                                {{ examinations.gosh_sym_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>sign</td>
+                    <td>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>التهاب پرده تمپان</lable>
+                                {{ examinations.gosh_sign_eltehab_parde }}
+                            </div>
+                            <div class='col'>
+                                <lable>پارگی پرده تمپان</lable>
+                                {{ examinations.gosh_sign_paregi }}
+                            </div>
+                            <div class='col'>
+                                <lable>افزایش غیر طبیعی سرومن</lable>
+                                {{ examinations.gosh_sign_afzayesh }}
+                            </div>
+                            <div class='col'>
+                                <lable>ترشح پشت حلق</lable>
+                                {{ examinations.gosh_sign_tarashoh }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>اگزودای حلق</lable>
+                                {{ examinations.gosh_sign_egzodai }}
+                            </div>
+                            <div class='col'>
+                                <lable>قرمزی حلق</lable>
+                                {{ examinations.gosh_sign_red }}
+                            </div>
+                            <div class='col'>
+                                <lable>پولیپ بینی</lable>
+                                {{ examinations.gosh_sign_polip }}
+                            </div>
+                            <div class='col'>
+                                <lable>تندرنس سینوس ها</lable>
+                                {{ examinations.gosh_sign_tndrs }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>lead line</lable>
+                                {{ examinations.gosh_sign_lead }}
+                            </div>
+                            <div class='col'>
+                                <lable>بوی بد دهان</lable>
+                                {{ examinations.gosh_sign_bad_smell }}
+                            </div>
+                            <div class='col'>
+                                <lable>التهاب لثه</lable>
+                                {{ examinations.gosh_sign_eltehab_lase }}
+                            </div>
+                            <div class='col'>
+                                <lable>پرفوراسیون/زخم سپتوم</lable>
+                                {{ examinations.gosh_sign_zakhm }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.gosh_sign_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون نشانه</lable>
+                                {{ examinations.gosh_sign_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>توضیحات</td>
+                    <td>{{ examinations.gosh_des }}</td>
+                </tr>
+                <tr>
+                    <td rowspan='3'>سر و گردن</td>
+                    <td> Symptom</td>
+                    <td> 
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>درد گردن</lable>
+                                {{ examinations.sar_sym_dard_gardan }}
+                            </div>
+                            <div class='col'>
+                                <lable>توده گردنی</lable>
+                                {{ examinations.sar_sym_tode_gardani }}
+                            </div>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.sar_sym_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون علامت</lable>
+                                {{ examinations.sar_sym_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>sign</td>
+                    <td>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>بزرگی تیروئید</lable>
+                                {{ examinations.sar_sign_bozorgi_tiroid }}
+                            </div>
+                            <div class='col'>
+                                <lable>لنفادنوپاتی گردنی</lable>
+                                {{ examinations.sar_sign_gardani }}
+                            </div>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.sar_sign_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون علامت</lable>
+                                {{ examinations.sar_sign_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>توضیحات</td>
+                    <td>{{ examinations.sar_des }}</td>
+                </tr>
+                <tr>
+                    <td rowspan='3'>ریه</td>
+                    <td> Symptom</td>
+                    <td> 
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>سرفه</lable>
+                                {{ examinations.rie_sym_sorfe }}
+                            </div>
+                            <div class='col'>
+                                <lable>خلط</lable>
+                                {{ examinations.rie_sym_khelt }}
+                            </div>
+                            <div class='col'>
+                                <lable>تنگی نفس کوشش</lable>
+                                {{ examinations.rie_sym_tangi }}
+                            </div>
+                            <div class='col'>
+                                <lable>خس خس سینه</lable>
+                                {{ examinations.rie_sym_sine }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.rie_sym_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون علامت</lable>
+                                {{ examinations.rie_sym_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>sign</td>
+                    <td>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>وضعیت ظاهری غیر طبیعی قفسه سینه</lable>
+                                {{ examinations.rie_sign_zaheri }}
+                            </div>
+                            <div class='col'>
+                                <lable>خشونت صدا</lable>
+                                {{ examinations.rie_sign_khoshonat }}
+                            </div>
+                            <div class='col'>
+                                <lable>ویزینگ</lable>
+                                {{ examinations.rie_sign_vizing }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>کراکل</lable>
+                                {{ examinations.rie_sign_cracel }}
+                            </div>
+                            <div class='col'>
+                                <lable>تاکی پنه</lable>
+                                {{ examinations.rie_sign_taki_pene }}
+                            </div>
+                            <div class='col'>
+                                <lable>کاهش صداهای ریوی</lable>
+                                {{ examinations.rie_sign_kahesh_sedaha }}
+                            </div>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.rie_sign_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون نشانه</lable>
+                                {{ examinations.rie_sign_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>توضیحات</td>
+                    <td>{{ examinations.rie_des }}</td>
+                </tr>
+                <tr>
+                    <td rowspan='3'>قلب و عروق</td>
+                    <td> Symptom</td>
+                    <td> 
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>درد قفسه سینه</lable>
+                                {{ examinations.ghalb_sym_dard }}
+                            </div>
+                            <div class='col'>
+                                <lable>تپش قلب</lable>
+                                {{ examinations.ghalb_sym_tapesh }}
+                            </div>
+                            <div class='col'>
+                                <lable>تنگی نفس ناگهانی شبانه</lable>
+                                {{ examinations.ghalb_sym_tangi_shabane }}
+                            </div>
+                            <div class='col'>
+                                <lable>تنگی نفس دروضعیت خوابیده</lable>
+                                {{ examinations.ghalb_sym_tangi_khabide }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>سیانوز</lable>
+                                {{ examinations.ghalb_sym_sianoz }}
+                            </div>
+                            <div class='col'>
+                                <lable>سابقه سنکوپ</lable>
+                                {{ examinations.ghalb_sym_senkop }}
+                            </div>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.ghalb_sym_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون علامت</lable>
+                                {{ examinations.ghalb_sym_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>sign</td>
+                    <td>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>S1S2غیر طبیعی</lable>
+                                {{ examinations.ghalb_sign_s }}
+                            </div>
+                            <div class='col'>
+                                <lable>صدای اضافه قلب</lable>
+                                {{ examinations.ghalb_sign_seda_ezafe }}
+                            </div>
+                            <div class='col'>
+                                <lable>آریتمی</lable>
+                                {{ examinations.ghalb_sign_aritmi }}
+                            </div>
+                            <div class='col'>
+                                <lable>واریس اندام تحتانی</lable>
+                                {{ examinations.ghalb_sign_varis_tahtani }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>واریس اندام فوقانی</lable>
+                                {{ examinations.ghalb_sign_varis_foghani }}
+                            </div>
+                            <div class='col'>
+                                <lable>ادم اندام</lable>
+                                {{ examinations.ghalb_sign_andam }}
+                            </div>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.ghalb_sign_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون نشانه</lable>
+                                {{ examinations.ghalb_sign_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>توضیحات</td>
+                    <td>{{ examinations.ghalb_des }}</td>
+                </tr>
+                <tr>
+                    <td rowspan='3'>شکم و لگن</td>
+                    <td> Symptom</td>
+                    <td> 
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>بی اشتهایی</lable>
+                                {{ examinations.shekam_sym_bi_eshteha }}
+                            </div>
+                            <div class='col'>
+                                <lable>تهوع</lable>
+                                {{ examinations.shekam_sym_tahavo }}
+                            </div>
+                            <div class='col'>
+                                <lable>استفراغ</lable>
+                                {{ examinations.shekam_sym_estefragh }}
+                            </div>
+                            <div class='col'>
+                                <lable>درد شکم</lable>
+                                {{ examinations.shekam_sym_dard_shekam }}
+                            </div>
+                            <div class='col'>
+                                <lable>سوزش سر دل</lable>
+                                {{ examinations.shekam_sym_soozesh }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>اسهال</lable>
+                                {{ examinations.shekam_sym_eshal }}
+                            </div>
+                            <div class='col'>
+                                <lable>یبوست</lable>
+                                {{ examinations.shekam_sym_yobosat }}
+                            </div>
+                            <div class='col'>
+                                <lable>مدفوع قیری</lable>
+                                {{ examinations.shekam_sym_ghiri }}
+                            </div>
+                            <div class='col'>
+                                <lable>خون روشن در مدفوع</lable>
+                                {{ examinations.shekam_sym_roshan }}
+                            </div>               
+                            <div class='col'>
+                                <lable>اختلال در بلع</lable>
+                                {{ examinations.shekam_sym_ekhtelal }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.shekam_sym_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون علامت</lable>
+                                {{ examinations.shekam_sym_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>sign</td>
+                    <td>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>تندرنس شکمی</lable>
+                                {{ examinations.shekam_sign_shekami }}
+                            </div>
+                            <div class='col'>
+                                <lable>ریباند تندرنس</lable>
+                                {{ examinations.shekam_sign_rebond }}
+                            </div>
+                            <div class='col'>
+                                <lable>هپاتومگالی</lable>
+                                {{ examinations.shekam_sign_hepatomegaly }}
+                            </div>
+                            <div class='col'>
+                                <lable>اسپلنومگالی</lable>
+                                {{ examinations.shekam_sign_espelnomegali }}
+                            </div>
+                            <div class='col'>
+                                <lable>آسیت</lable>
+                                {{ examinations.shekam_sign_asib }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>توده شکمی</lable>
+                                {{ examinations.shekam_sign_tode_shekami }}
+                            </div>
+                            <div class='col'>
+                                <lable>دیستانسیون شکمی</lable>
+                                {{ examinations.shekam_sign_distansion }}
+                            </div>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.shekam_sign_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون نشانه</lable>
+                                {{ examinations.shekam_sign_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>توضیحات</td>
+                    <td>{{ examinations.shekam_des }}</td>
+                </tr>
+                <tr>
+                    <td rowspan='3'>کلیه و مجاری ادراری,تناسلی</td>
+                    <td> Symptom</td>
+                    <td> 
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>سوزش درار</lable>
+                                {{ examinations.colie_sym_soozesh }}
+                            </div>
+                            <div class='col'>
+                                <lable>تکرر ادرار</lable>
+                                {{ examinations.colie_sym_tekrar }}
+                            </div>
+                            <div class='col'>
+                                <lable>ادرار خونی</lable>
+                                {{ examinations.colie_sym_khoni }}
+                            </div>
+                            <div class='col'>
+                                <lable>درد پهلو</lable>
+                                {{ examinations.colie_sym_pahlo }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>احساس سنگینی یا توده در بیضه</lable>
+                                {{ examinations.colie_sym_sangini }}
+                            </div>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.colie_sym_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون علامت</lable>
+                                {{ examinations.colie_sym_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>sign</td>
+                    <td>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>تندرستیCVA</lable>
+                                {{ examinations.colie_sign_cva }}
+                            </div>
+                            <div class='col'>
+                                <lable>واریکوسل</lable>
+                                {{ examinations.colie_sign_varikosel }}
+                            </div>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.colie_sign_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون نشانه</lable>
+                                {{ examinations.colie_sign_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>توضیحات</td>
+                    <td>{{ examinations.colie_des }}</td>
+                </tr>
+                <tr>
+                    <td rowspan='3'>اسکلتی و عضلانی</td>
+                    <td> Symptom</td>
+                    <td> 
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>خشکی مفصل</lable>
+                                {{ examinations.eskelety_sym_mafsal }}
+                            </div>
+                            <div class='col'>
+                                <lable>کمردرد</lable>
+                                {{ examinations.eskelety_sym_kamar_dard }}
+                            </div>
+                            <div class='col'>
+                                <lable>درد زانو</lable>
+                                {{ examinations.eskelety_sym_zano }}
+                            </div>
+                            <div class='col'>
+                                <lable>درد شانه</lable>
+                                {{ examinations.eskelety_sym_shane }}
+                            </div>
+                            <div class='col'>
+                                <lable>درد سایر مفاصل</lable>
+                                {{ examinations.eskelety_sym_other_mafasel }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.eskelety_sym_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون علامت</lable>
+                                {{ examinations.eskelety_sym_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>sign</td>
+                    <td>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>محدودیت حرکتی مفصل</lable>
+                                {{ examinations.eskelety_sign_mahdodiat }}
+                            </div>
+                            <div class='col'>
+                                <lable>کاهش قدرت عضلانی در اندام فوقانی</lable>
+                                {{ examinations.eskelety_sign_kahesh_foghani }}
+                            </div>
+                            <div class='col'>
+                                <lable>کاهش قدرت عضلانی در اندام تحتانی</lable>
+                                {{ examinations.eskelety_sign_kahesh_tahtani }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>اسکولیوز</lable>
+                                {{ examinations.eskelety_sign_eskolioz }}
+                            </div>
+                            <div class='col'>
+                                <lable>امپوتاسیون</lable>
+                                {{ examinations.eskelety_sign_empotasion }}
+                            </div>
+                            <div class='col'>
+                                <lable>تست SLR مثبت</lable>
+                                {{ examinations.eskelety_sign_slr }}
+                            </div>
+                            <div class='col'>
+                                <lable>تست Reverse-SLR</lable>
+                                {{ examinations.eskelety_sign_r_slr }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.eskelety_sign_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون نشانه</lable>
+                                {{ examinations.eskelety_sign_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>توضیحات</td>
+                    <td>{{ examinations.eskelety_des }}</td>
+                </tr>
+                <tr>
+                    <td rowspan='3'>سیستم عصبی</td>
+                    <td> Symptom</td>
+                    <td> 
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>سردرد</lable>
+                                {{ examinations.asabi_sym_sar_dard }}
+                            </div>
+                            <div class='col'>
+                                <lable>گیجی</lable>
+                                {{ examinations.asabi_sym_giji }}
+                            </div>
+                            <div class='col'>
+                                <lable>لرزش</lable>
+                                {{ examinations.asabi_sym_larzesh }}
+                            </div>
+                            <div class='col'>
+                                <lable>اختلال حافظه</lable>
+                                {{ examinations.asabi_sym_ekhtelal }}
+                            </div>
+                            <div class='col'>
+                                <lable>سابقه صرع/تشنج</lable>
+                                {{ examinations.asabi_sym_tashanoj }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>گز گز و مور مور انگشتان دست</lable>
+                                {{ examinations.asabi_sym_gez_gez }}
+                            </div>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.asabi_sym_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون علامت</lable>
+                                {{ examinations.asabi_sym_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>sign</td>
+                    <td>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>رفلکس زانوی غیر طبیعی</lable>
+                                {{ examinations.asabi_sign_tabi_e }}
+                            </div>
+                            <div class='col'>
+                                <lable>رفلکس آشیل غیرطبیعی</lable>
+                                {{ examinations.asabi_sign_gheir_tabi_e }}
+                            </div>
+                            <div class='col'>
+                                <lable>تست رومبرگ مختل</lable>
+                                {{ examinations.asabi_sign_mokhtal }}
+                            </div>
+                            <div class='col'>
+                                <lable>ترمور</lable>
+                                {{ examinations.asabi_sign_trmor }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>اختلال حسی اندام ها</lable>
+                                {{ examinations.asabi_sign_hesi }}
+                            </div>
+                            <div class='col'>
+                                <lable>تست تینل مثبت</lable>
+                                {{ examinations.asabi_sign_tinel }}
+                            </div>
+                            <div class='col'>
+                                <lable>تست فالن مثبت</lable>
+                                {{ examinations.asabi_sign_falen }}
+                            </div>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.asabi_sign_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون نشانه</lable>
+                                {{ examinations.asabi_sign_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>توضیحات</td>
+                    <td>{{ examinations.asabi_des }}</td>
+                </tr>
+                <tr>
+                    <td rowspan='3'>اعصاب و روان</td>
+                    <td> Symptom</td>
+                    <td> 
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>عصبانیت بیش از حد</lable>
+                                {{ examinations.ravan_sym_asabaniat }}
+                            </div>
+                            <div class='col'>
+                                <lable>پرخاشگری</lable>
+                                {{ examinations.ravan_sym_parkhashgari }}
+                            </div>
+                            <div class='col'>
+                                <lable>اضطراب</lable>
+                                {{ examinations.ravan_sym_ezterab }}
+                            </div>
+                            <div class='col'>
+                                <lable>خلق پایین</lable>
+                                {{ examinations.ravan_sym_kholgh }}
+                            </div>
+                        </div>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>کاهش انگیزه</lable>
+                                {{ examinations.ravan_sym_angize }}
+                            </div>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.ravan_sym_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون علامت</lable>
+                                {{ examinations.ravan_sym_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>sign</td>
+                    <td>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                <lable>هذیان</lable>
+                                {{ examinations.ravan_sign_hazyan }}
+                            </div>
+                            <div class='col'>
+                                <lable>توهم</lable>
+                                {{ examinations.ravan_sign_tavahom }}
+                            </div>
+                            <div class='col'>
+                                <lable>اختلال اوریانتاسیون</lable>
+                                {{ examinations.ravan_sign_oriantasion }}
+                            </div>
+                            <div class='col'>
+                                <lable>غیره.....</lable>
+                                {{ examinations.ravan_sign_other }}
+                            </div>
+                            <div class='col'>
+                                <lable>بدون نشانه</lable>
+                                {{ examinations.ravan_sign_without_sign }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>توضیحات</td>
+                    <td>{{ examinations.ravan_des }}</td>
+                </tr>
+                <tr>
+                    <td>سایر موارد:</td>
+                    <td colspan=2>
+                        <div class='row text-center'>
+                            <div class='col'>
+                                {{ examinations.other }}
+                            </div>
+                            <div class='col'>
+                                <label for="code">کد پزشک</label>
+                                {{ examinations.code }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class='row b-green mt-5'>
+            <div class='col'>
+                6-آزمایش ها(lab tests):
+            </div>
+        </div>
+        <div class='row mt-2'>
+            <div class='col'>
+                تاریخ:{{ experiments.exp_date_day }}/{{ experiments.exp_date_month }}/{{ experiments.exp_date_year }}
+            </div>
+        </div> 
+        <div class='row mt-3' dir=ltr>
+            <div class='col'>
+                CBC:WBC:{{ experiments.cbc_wbc }}/RBC:{{ experiments.cbc_rbc }}m/Hb:{{ experiments.cbc_hb }}HCT:{{ experiments.cbc_htc }}Plt:{{ experiments.cbc_plt }}
+            </div>
+        </div>
+        <div class='row mt-3' dir=ltr>
+            <div class='col'>
+                U/A:Prot:{{ experiments.ua_prot }} Glu:{{ experiments.ua_glu }}RBC:{{ experiments.ua_rbc }}WBC:{{ experiments.ua_wbc }}Bact:{{ experiments.ua_bact }} <input type = 'checkbox' id = 'selectBox'>نرمال
+            </div>
+        </div>
+        <div class='row mt-3' dir=ltr>
+            <div class='col'>
+                FBS:{{ experiments.fbs }} Total Chol:{{ experiments.chol }}LDL:{{ experiments.ldl }}HDL:{{ experiments.hdl }}TG:{{ experiments.tg }}D3:{{ experiments.d }}TSH:{{ experiments.tsh }}
+            </div>
+        </div>
+        <div class='row mt-3' dir=ltr>
+            <div class='col'>
+                PSA:{{ experiments.psa }} Cr:{{ experiments.cr }}ALT:{{ experiments.alt }}AST:{{ experiments.ast }}ALK.Ph:{{ experiments.alk }}LEAD:{{ experiments.lead }}S/E & OB:{{ experiments.se_status }}PPD:{{ experiments.ppd_status }}
+            </div>
+        </div>
+        <div class='row mt-4'>
+            <div class='col'>
+                <u>آزمایش های تخصصی/واکسیناسیون:</u>
+            </div>
+        </div> 
+        <div class='row mt-3'>
+            <div class='col'>
+                1-نوع:{{ experiments.first_type }} نتیجه:{{ experiments.first_result }}تاریخ:{{ experiments.first_date_day }}/
+                {{ experiments.first_date_month }}/{{ experiments.first_date_year }}
+            </div>
+        </div>
+        <div class='row mt-3'>
+            <div class='col'>
+                2-نوع:{{ experiments.second_type }} نتیجه:{{ experiments.second_result }}تاریخ:{{ experiments.second_date_day }}/
+                {{ experiments.second_date_month }}/{{ experiments.second_date_year }}
+            </div>
+        </div>
+        <div class='row mt-3'>
+            <div class='col'>
+                3-نوع:{{ experiments.third_type }} نتیجه:{{ experiments.third_result }}تاریخ:{{ experiments.third_date_day }}/
+                {{ experiments.third_date_month }}/{{ experiments.third_date_year }}
+            </div>
+        </div>
+        <div class='row b-green mt-5'>
+            <div class='col'>
+                7-پاراکلینیک:
+            </div>
+        </div>
+        <div class='row mt-2'>
+            الف-اپتومتری
+        </div>
+        <div class='row text-center mt-2'>
+            <table>
+                <tr>
+                    <th rowspan=3 width=17%>تاریخ</th>
+                    <th colspan=4>حدت بینایی</th>
+                    <th colspan=4>دید رنگی</th>
+                    <th colspan=4>میدان بینایی</th>
+                </tr>
+                <tr>
+                    <th colspan=2>R{{ para_clinic.opto_hedat_r_status }}</th>
+                    <th colspan=2>L{{ para_clinic.opto_hedat_l_status }}</th>
+                    <td colspan=4 rowspan=3>{{ para_clinic.opto_rangi }}</td>
+                    <td colspan=4 rowspan=3>{{ para_clinic.opto_meidan }}</td>
+                </tr>
+                <tr>
+                    <th>با اصلاح</th>
+                    <th>بدون اصلاح</th>
+                    <th>با اصلاح</th>
+                    <th>بدون اصلاح</th>
+                </tr>
+                <tr>
+                    <td rowspan=3>{{ para_clinic.opto_date_day }}/{{ para_clinic.opto_date_month }}/{{ para_clinic.opto_date_year }}</td>
+                    <td>10/{{ para_clinic.opto_hedat_r_ba }}</td>
+                    <td>10/{{ para_clinic.opto_hedat_r_bi }}</td>
+                    <td>10/{{ para_clinic.opto_hedat_l_ba }}</td>
+                    <td>10/{{ para_clinic.opto_hedat_l_bi }}</td>
+                </tr>
+                <tr>
+                    <td colspan=12>دید عمق</td>
+                </tr>
+                <tr>
+                    <td colspan=12>ثانیه آرک{{ para_clinic.opto_omgh }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class='row mt-2'>
+            ب-اودیومتری
+        </div>
+        <div class='row text-center mt-2'>
+            <table>
+                <tr>
+                    <th width=17%>تفسیر</th>
+                    <th>8000</th>
+                    <th>6000</th>
+                    <th>4000</th>
+                    <th>3000</th>
+                    <th>2000</th>
+                    <th>1000</th>
+                    <th>500</th>
+                    <th>فرکانس</th>
+                    <th>تاریخ:{{ para_clinic.audio_date_day }}/{{ para_clinic.audio_date_month }}/{{ para_clinic.audio_date_year }}</th>
+                </tr>
+                <tr>
+                    <td rowspan=2>{{ para_clinic.audio_r_tafsir }}</td>
+                    <td>{{ para_clinic.audio_r_eight_ac }}</td>
+                    <td>{{ para_clinic.audio_r_six_ac }}</td>
+                    <td>{{ para_clinic.audio_r_four_ac }}</td>
+                    <td>{{ para_clinic.audio_r_three_ac }}</td>
+                    <td>{{ para_clinic.audio_r_two_ac }}</td>
+                    <td>{{ para_clinic.audio_r_one_ac }}</td>
+                    <td>{{ para_clinic.audio_r_five_ac }}</td>
+                    <td>AC</td>
+                    <td rowspan=2>گوش راست</td>
+                </tr>
+                <tr>
+                    <td>{{ para_clinic.audio_r_eight_bc }}</td>
+                    <td>{{ para_clinic.audio_r_six_bc }}</td>
+                    <td>{{ para_clinic.audio_r_four_bc }}</td>
+                    <td>{{ para_clinic.audio_r_three_bc }}</td>
+                    <td>{{ para_clinic.audio_r_two_bc }}</td>
+                    <td>{{ para_clinic.audio_r_one_ac }}</td>
+                    <td>{{ para_clinic.audio_r_five_bc }}</td>
+                    <td>BC</td>
+                </tr>
+                <tr>
+                    <td rowspan=2>{{ para_clinic.audio_l_tafsir }}</td>
+                    <td>{{ para_clinic.audio_l_eight_ac }}</td>
+                    <td>{{ para_clinic.audio_l_six_ac }}</td>
+                    <td>{{ para_clinic.audio_l_four_ac }}</td>
+                    <td>{{ para_clinic.audio_l_three_ac }}</td>
+                    <td>{{ para_clinic.audio_l_two_ac }}</td>
+                    <td>{{ para_clinic.audio_l_one_ac }}</td>
+                    <td>{{ para_clinic.audio_l_five_ac }}</td>
+                    <td>AC</td>
+                    <td rowspan=2>گوش راست</td>
+                </tr>
+                <tr>
+                    <td>{{ para_clinic.audio_l_eight_bc }}</td>
+                    <td>{{ para_clinic.audio_l_six_bc }}</td>
+                    <td>{{ para_clinic.audio_l_four_bc }}</td>
+                    <td>{{ para_clinic.audio_l_three_bc }}</td>
+                    <td>{{ para_clinic.audio_l_two_bc }}</td>
+                    <td>{{ para_clinic.audio_l_one_ac }}</td>
+                    <td>{{ para_clinic.audio_l_five_bc }}</td>
+                    <td>BC</td>
+                </tr>
+            </table>
+        </div>
+        <div class='row mt-2'>
+            ج-اسپیرومتری
+        </div>
+        <div class='row mt-3'>
+            <table class='text-center'>
+               <tr>
+                   <td colspan=3>تاریخ انجام:{{ para_clinic.espiro_date_day }}/{{ para_clinic.espiro_date_month }}/{{ para_clinic.espiro_date_year }}</td>
+               </tr>
+               <tr>
+                   <td>FEV1/FVC%</td>
+                   <td>FVC(درصد/مقدار)</td>
+                   <td>FEV1(درصد/مقدار)</td>
+               </tr>
+               <tr>
+                    <td>{{ para_clinic.espiro_fevvfvc }}</td>
+                    <td>{{ para_clinic.espiro_fvc }}</td>
+                    <td>{{ para_clinic.espiro_fev }}</td>
+                </tr>
+                <tr>
+                    <td>VEXT(Back Extrapolated Volume)</td>
+                    <td>PEF</td>
+                    <td>FEF 25-75%</td>
+                </tr>
+                <tr>
+                     <td>{{ para_clinic.espiro_vext }}</td>
+                     <td>{{ para_clinic.espiro_pef }}</td>
+                     <td>{{ para_clinic.espiro_fef }}</td>
+                 </tr>
+                 <tr>
+                     <td colspan=3><p>تفسیر:</p>
+                        {{ para_clinic.espiro_tafsir }}
+                     </td>
+                 </tr>
+            </table>
+        </div>
+        <div class='row mt-2'>
+            د-سایر اقدامات پارکلینیک در صورت لزوم
+        </div>
+        <div class='row mt-3'>
+            <table>
+                <tr>
+                    <td><p>یافته های CXR(P-A)</p>تاریخ انجام:{{ para_clinic.other_cxr_day }}/{{ para_clinic.other_cxr_month }}/{{ para_clinic.other_cxr_year }}</td>
+                    <td width=75%>{{ para_clinic.other_cxr }}</td>
+                </tr>
+                <tr>
+                    <td><p>یافته های ECG</p>تاریخ انجام:{{ para_clinic.other_ecg_day }}/{{ para_clinic.other_ecg_month }}/{{ para_clinic.other_ecg_year }}</td>
+                    <td width=75%>{{ para_clinic.other_ecg }}</td>
+                </tr>
+                <tr class='text-center'>
+                    <td colspan=3><p>نتیجه رادیوگرافی,سونوگرافی,سی تی اسکن و سایر موارد:</p>
+                        {{ para_clinic.other_result }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class='row b-green mt-5'>
+            <div class='col'>
+                8-ثبت مشاوره ها و نتایج ارجاع ها:
+            </div>
+        </div>
+        <div class='row'>
+            <table>
+                <tr>
+                    <th>مشاوره یا ارجاع</th>
+                    <th>نتیجه ارجاع</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div class='mt-1'>
+                            تاریخ :{{ consulting.first_day }}/{{ consulting.first_month }}/{{ consulting.first_year }}
+                        </div>
+                        <div class='mt-1'>
+                            علت ارجاع:{{ consulting.first_reason }}
+                        </div>
+                        <div class='mt-1'>
+                            نوع تخصص:{{ consulting.first_type }}
+                        </div>
+                    </td>
+                    <td width=70%>{{ consulting.first_result }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class='mt-1'>
+                            تاریخ :{{ consulting.second_day }}/{{ consulting.second_month }}/{{ consulting.second_year }}
+                        </div>
+                        <div class='mt-1'>
+                            علت ارجاع:{{ consulting.second_reason }}
+                        </div>
+                        <div class='mt-1'>
+                            نوع تخصص:{{ consulting.second_type }}
+                        </div>
+                    </td>
+                    <td width=70%>{{ consulting.second_result }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class='row b-green mt-5'>
+            <div class='col'>
+                9-نظریه نهایی پزشک متخصص طب کار/سلامت شغلی در خصوص کار شاغل:
+            </div>
+        </div>
+        <div class='row'>
+            <table id='checkboxes17'>
+                <tr>
+                    <td>الف-بلامانع{{ final_theory.belamane }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            ب-مشروط {{ final_theory.mashrot }}
+                        </div> 
+                        <div>
+                            ذکر مشروط:
+                            {{ final_theory.mashrot_reason }}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            ج-عدم صلاحیت/تناسب پزشکی جهت انجام شغل مورد نظر {{ final_theory.rad }}
+                        </div> 
+                        <div>
+                            علل رد صلاحیت پزشکی:
+                            {{ final_theory.rad_reason }}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='text-center'>
+                        <div class='row'>
+                            <div class='col'>
+                                توصیه های پزشکی:{{ final_theory.recommendations }}
+                            </div>
+                            <div class='col'>
+                                علت باز بودن پرونده:{{ final_theory.reason }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class='row text-center mt-4'>
+            <div class='col'>
+                مشکلات مشاهده شده:{{ final_theory.problems }}
+            </div>
+            <div class='col box'>
+                کد بیماری شغلی:{{ final_theory.d_code }}
+            </div>
+        </div>
+        <div class='row text-center mt-4'>
+            <div class='col'>
+                <input type="submit" value="ذخیره و ثبت جدید">
+            </div>
+        </div>
+    </form>
+</section>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('#id_opto_hedat_r_bi').prop('disabled', true);
+    $('#id_opto_hedat_r_ba').prop('disabled', true);
+       $('#id_opto_hedat_r_status').change(function(){
+         if($(this).val() == "daraie_did") {
+       $('#id_opto_hedat_r_bi').prop('disabled', false);
+       $('#id_opto_hedat_r_ba').prop('disabled', false);      
+     } else {
+          $('#id_opto_hedat_r_bi').prop('disabled', true);
+          $('#id_opto_hedat_r_ba').prop('disabled', true);
+      }
+       });
+   });
+</script>
+<script type="text/javascript">
+$(function() {
+    $('#id_opto_hedat_l_bi').prop('disabled', true);
+    $('#id_opto_hedat_l_ba').prop('disabled', true);
+        $('#id_opto_hedat_l_status').change(function(){
+            if($(this).val() == "daraie_did") {
+        $('#id_opto_hedat_l_bi').prop('disabled', false);
+        $('#id_opto_hedat_l_ba').prop('disabled', false);      
+        } else {
+            $('#id_opto_hedat_l_bi').prop('disabled', true);
+            $('#id_opto_hedat_l_ba').prop('disabled', true);
+        }
+        });
+    });
+</script>
+{% for a in 'aaaaaaaaaaaaaaaaa' %}
+<script>
+    $('#checkboxes{{ forloop.counter }}').on('click', ':checkbox', function(e) {
+        $('#checkboxes{{ forloop.counter }} :checkbox').each(function() {
+          if (this != e.target)
+            $(this).prop('checked', false);
+        });
+      });
+</script>
+<script>
+    const jsonList = {
+      "badv_estekhdam":[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,'daraie_did','daraie_did',10,10,10,10,'normal',10,10,10,10,10,10,10,10,10,10,10,10,10,10,'normal',10,10,10,10,10,10,10,10,10,10,10,10,10,10],
+      "dore_e":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''],
+      "bazgasht_be_kar":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''],
+      "":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''],
+    };
+    const e = document.getElementById("id_examinations_type");
+    const inputs = document.getElementsByClassName("auto-filler");
+    function autoFill() {
+      const ev = e.value;
+      const list = jsonList[ev];
+      for (let i=0; i<inputs.length; i++) {
+        if (typeof list[i] == "boolean") {
+          inputs[i].checked = list[i];
+        } else {
+          inputs[i].value = list[i];
+        }
+      }
+    }
+    e.addEventListener("change", autoFill)
+</script>
+<script>
+    const jsonList = {
+        'true' : ['0','0','0','0','0'],
+        'false' : ['',"",'','',''],
+        };
+    const e = document.getElementById("selectBox");
+    const inputs = document.getElementsByClassName("ua");
+    function autoFill() {
+        const ev = e.checked;
+        const list = jsonList[ev];
+        for (let i=0; i<inputs.length; i++) {
+        if (typeof list[i] == "boolean") {
+            inputs[i].checked = list[i];
+        } else {
+            inputs[i].value = list[i];
+        }
+        }
+    }
+    e.addEventListener("change", autoFill)
+</script>
+{% endfor %}
+{% endblock content %}

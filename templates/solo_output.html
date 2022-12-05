@@ -1,0 +1,460 @@
+{% extends 'article/base.html' %}
+{% load django_template_maths %}
+{% load static %}
+{% block content %}
+<section class="b-green">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col">
+                    خروجی انفرادی
+            </div>
+        </div>
+    </div>
+</section>
+<svg id="wave" style="transform:rotate(180deg); transition: 0.3s" viewBox="0 0 1440 100" version="1.1"
+xmlns="http://www.w3.org/2000/svg">
+<defs>
+   <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
+       <stop stop-color="rgba(127, 255, 0, 1)" offset="0%"></stop>
+       <stop stop-color="rgba(127, 255, 0, 1)" offset="100%"></stop>
+   </linearGradient>
+</defs>
+<path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)"
+     d="M0,30L80,38.3C160,47,320,63,480,60C640,57,800,33,960,25C1120,17,1280,23,1440,31.7C1600,40,1760,50,1920,51.7C2080,53,2240,47,2400,50C2560,53,2720,67,2880,61.7C3040,57,3200,33,3360,25C3520,17,3680,23,3840,30C4000,37,4160,43,4320,46.7C4480,50,4640,50,4800,55C4960,60,5120,70,5280,68.3C5440,67,5600,53,5760,53.3C5920,53,6080,67,6240,66.7C6400,67,6560,53,6720,55C6880,57,7040,73,7200,66.7C7360,60,7520,30,7680,28.3C7840,27,8000,53,8160,68.3C8320,83,8480,87,8640,88.3C8800,90,8960,90,9120,76.7C9280,63,9440,37,9600,25C9760,13,9920,17,10080,20C10240,23,10400,27,10560,25C10720,23,10880,17,11040,25C11200,33,11360,57,11440,68.3L11520,80L11520,100L11440,100C11360,100,11200,100,11040,100C10880,100,10720,100,10560,100C10400,100,10240,100,10080,100C9920,100,9760,100,9600,100C9440,100,9280,100,9120,100C8960,100,8800,100,8640,100C8480,100,8320,100,8160,100C8000,100,7840,100,7680,100C7520,100,7360,100,7200,100C7040,100,6880,100,6720,100C6560,100,6400,100,6240,100C6080,100,5920,100,5760,100C5600,100,5440,100,5280,100C5120,100,4960,100,4800,100C4640,100,4480,100,4320,100C4160,100,4000,100,3840,100C3680,100,3520,100,3360,100C3200,100,3040,100,2880,100C2720,100,2560,100,2400,100C2240,100,2080,100,1920,100C1760,100,1600,100,1440,100C1280,100,1120,100,960,100C800,100,640,100,480,100C320,100,160,100,80,100L0,100Z"></path>
+</svg>
+<section class='container-fluid'>
+    <div class='row text-center mt-4'>
+        <div class='col-1'>
+            <a href='{% url 'graph' %}' class="nav-link text-dark text-center green-page">قبل</a>
+        </div>
+        <div class='col'>
+            <form action='{% url 'addorder' %}' method='POST'>
+                {% csrf_token %}
+                <lable for='no'>شماره پرونده</lable>
+                {{ form.order_number }}
+                <input type="submit" value="ثبت">
+            </form>
+        </div>
+        <div class='col-1'>
+            <a href='{% url 'examinations_output_course' %}' class="nav-link text-dark text-center green-page">بعد</a>
+        </div>
+    </div>
+</section>
+{% for item in solo_page %}
+<section id='print{{ forloop.counter }}'>
+    <div class='container' style='font-size: 15px;'>
+        <div class='row text-center mt-5'>
+            <div class='col'>
+                <lable>تاریخ انجام معاینات:</lable>
+                {{ examinations_course.year }}
+            </div>
+        </div>
+        <div class='row text-center'>
+            <div class='col'>
+                <lable>کارخانه/کارگاه/شرکت:</lable>
+                {{ examinations_course.company }}            
+            </div>
+            <div class='col'>
+                <lable>نام:</lable>
+                {{ item.name }}            
+            </div>
+        </div>
+        <div class='row text-center'>
+            <table class='parstable'>
+                <tr>
+                    <th class='first'>ویژگی</th>
+                    <th class='second'>مقدار</th>
+                    <th class='third'>وضعیت</th>
+                </tr>
+                <tr>
+                    <td class='first'>سن</td>
+                    {% if item.age %}
+                    <td class='second'>{{ 1401|sub:item.age }}</td>
+                    {% else %}
+                    <td class='second  none'>ذکر نشده</td>
+                    {% endif %}
+                    <td class='third'>---</td>
+                </tr>
+                <tr>
+                    <td class='first'>قد</td>
+                    {% if item.examinations.all.0.length %}
+                    <td class='second'>{{ item.examinations.all.0.length }}</td>
+                    {% else %}
+                    <td class='second  none'>ذکر نشده</td>
+                    {% endif %}
+                    <td class='third'>---</td>
+                </tr>
+                <tr>
+                    <td class='first'>توده بدنی</td>
+                    {% if item.examinations.all.0.body_mass %}
+                    <td class='second'>{{ item.examinations.all.0.body_mass }}</td>
+                    {% else %}
+                    <td class=' none second'>ذکر نشده</td>
+                    {% endif %}
+                    {% if item.examinations.all.0.body_mass < 20 %}
+                    <td class='third blue'>کمبود وزن</td>
+                    {% elif item.examinations.all.0.body_mass < 26 %}
+                    <td class='third blue'>ایده آل</td>
+                    {% elif item.examinations.all.0.body_mass < 31 %}
+                    <td class='third blue'>اضافه وزن</td>
+                    {% elif item.examinations.all.0.body_mass < 41 %}
+                    <td class='third blue'>چاقی</td>
+                    {% elif item.examinations.all.0.body_mass > 40 %}
+                    <td class='third blue'>چاقی شدید</td>
+                    {% else %}
+                    <td class='third none'>ذکر نشده</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>قند خون</td>
+                    {% if item.experiment.all.0.fbs %}                    
+                    <td class='second'>{{ item.experiment.all.0.fbs }}</td>
+                    {% else %}
+                    <td class='second  none'>ذکر نشده</td>
+                    {% endif %}
+                    {% if item.experiment.all.0.fbs < 100 %}
+                    <td class='third True'>نرمال</td>
+                    {% elif item.experiment.all.0.fbs < 126 %}
+                    <td class='third blue'>در محدوده احتیاط</td>
+                    {% elif item.experiment.all.0.fbs == None %}
+                    <td class='third none'>ذکر نشده</td>
+                    {% else %}
+                    <td class='third false'>غیر نرمال</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>فشار خون</td>
+                    {% if item.examinations.all.0.blood_pressure %}
+                    <td class='second'>{{ item.examinations.all.0.blood_pressure }}</td>
+                    {% else %}
+                    <td class='none'>ذکر نشده</td>
+                    {% endif %}
+                    {% if item.examinations.all.0.blood_pressure < 9 %}
+                    <td class='third blue'>پایین</td>
+                    {% elif item.examinations.all.0.blood_pressure >= 9 and item.examinations.all.0.blood_pressure <= 14 %}
+                    <td class='third True'>نرمال</td>
+                    {% elif item.examinations.all.0.blood_pressure > 9 %}
+                    <td class='third blue'>بالا</td>
+                    {% else %}
+                    <td class='third none'>ذکر نشده/غیر نرمال</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>کلسترول</td>
+                    {% if item.experiment.all.0.chol %}
+                    <td class='second'>{{ item.experiment.all.0.chol }}</td>
+                    {% else %}
+                    <td class='none'>ذکر نشده</td>
+                    {% endif %}                    
+                    {% if item.experiment.all.0.chol < 200 %}
+                    <td class='third True'>نرمال</td>
+                    {% else %}
+                    <td class='third none'>ذکر نشده/غیر نرمال</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>تری گلیسیرید</td>
+                    {% if item.experiment.all.0.tg %}
+                    <td class='second'>{{ item.experiment.all.0.tg }}</td>
+                    {% else %}
+                    <td class='none'>ذکر نشده</td>
+                    {% endif %}                    
+                    {% if item.experiment.all.0.tg < 200 %}
+                    <td class='third True'>نرمال</td>
+                    {% else %}
+                    <td class='third none'>ذکر نشده/غیر نرمال</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>ادرار</td>
+                    <td class='second'>---</td>
+                    {% if item.experiment.all.0.ua_prot == 0 and item.experiment.all.0.ua_glu == 0 and item.experiment.all.0.ua_rbc < 3 and item.experiment.all.0.ua_wbc < 5  and item.experiment.all.0.ua_bact == 0  %}
+                    <td class='third True'>نرمال</td>
+                    {% elif item.experiment.all.0.ua_prot == None and item.experiment.all.0.ua_glu == None and item.experiment.all.0.ua_rbc == None and item.experiment.all.0.ua_wbc == None  and item.experiment.all.0.ua_bact == None  %}
+                    <td class='third none'>ذکر نشده</td>
+                    {% else %}
+                    <td class='third false'>غیر نرمال</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>تست تنفس</td>
+                    <td class='second'>---</td>
+                    {% if item.para.all.0.espiro_tafsir == 'normal' %}
+                    <td class='third True'>نرمال</td>
+                    {% elif item.para.all.0.espiro_tafsir == 'ensedadi' %}
+                    <td class='third blue'>انسدادی</td>
+                    {% elif item.para.all.0.espiro_tafsir == 'tahdidi' %}
+                    <td class='third blue'>تحدیدی</td>
+                    {% elif item.para.all.0.espiro_tafsir == 'ensedadivtahdidi' %}
+                    <td class='third blue'>انسدادی و تحدیدی</td>
+                    {% elif item.para.all.0.espiro_tafsir == 'again' %}
+                    <td class='third blue'>نیاز به تکرار</td>
+                    {% else %}
+                    <td class='third none'>ذکر نشده</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>شنوایی گوش چپ</td>
+                    <td class='second'>---</td>
+                    {% if item.para.all.0.audio_l_tafsir == 'normal' %}
+                    <td class='third True'>نرمال</td>
+                    {% elif item.para.all.0.audio_l_tafsir == None %}
+                    <td class='third none'>ذکر نشده</td>
+                    {% else %}                    
+                    <td class='third false'>غیر نرمال</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>شنوایی گوش راست</td>
+                    <td class='second'>---</td>
+                    {% if item.para.all.0.audio_r_tafsir == 'normal' %}
+                    <td class='third True'>نرمال</td>
+                    {% elif item.para.all.0.audio_r_tafsir == None %}
+                    <td class='third none'>ذکر نشده</td>
+                    {% else %}                    
+                    <td class='third false'>غیر نرمال</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>بینایی چشم چپ</td>
+                    {% if item.para.all.0.opto_hedat_l_bi %}
+                    <td class='second'>{{ item.para.all.0.opto_hedat_l_bi }}</td>
+                    {% else %}
+                    <td class='second none'>ذکر نشده</td>
+                    {% endif %}
+                    {% if item.para.all.0.opto_hedat_l_status == 'adam_did' %}
+                    <td class='third blue'>عدم دید</td>
+                    {% elif item.para.all.0.opto_hedat_l_status == 'fc' %}
+                    <td class='third blue'>FC</td>
+                    {% elif item.para.all.0.opto_hedat_l_bi == 10 %}
+                    <td class='third True'>نرمال</td>
+                    {% elif item.para.all.0.opto_hedat_l_bi == None %}
+                    <td class='third none'> ذکر نشده</td>
+                    {% else %}
+                    <td class='third false'> غیر نرمال</td>  
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>بینایی چشم چپ با عینک</td>
+                    {% if item.para.all.0.opto_hedat_l_ba %}
+                    <td class='second'>{{ item.para.all.0.opto_hedat_l_ba }}</td>
+                    {% else %}
+                    <td class='second none'>ذکر نشده</td>
+                    {% endif %}
+                    {% if item.para.all.0.opto_hedat_l_status == 'adam_did' %}
+                    <td class='third blue'>عدم دید</td>
+                    {% elif item.para.all.0.opto_hedat_l_status == 'fc' %}
+                    <td class='third blue'>FC</td>
+                    {% elif item.para.all.0.opto_hedat_l_ba == 10 %}
+                    <td class='third True'>نرمال</td>
+                    {% elif item.para.all.0.opto_hedat_l_ba == None %}
+                    <td class='third none'> ذکر نشده</td>
+                    {% else %}
+                    <td class='third false'> غیر نرمال</td>  
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>بینایی چشم راست</td>
+                    {% if item.para.all.0.opto_hedat_r_bi %}
+                    <td class='second'>{{ item.para.all.0.opto_hedat_r_bi }}</td>
+                    {% else %}
+                    <td class='second none'>ذکر نشده</td>
+                    {% endif %}
+                    {% if item.para.all.0.opto_hedat_r_status == 'adam_did' %}
+                    <td class='third blue'>عدم دید</td>
+                    {% elif item.para.all.0.opto_hedat_r_status == 'fc' %}
+                    <td class='third blue'>FC</td>
+                    {% elif item.para.all.0.opto_hedat_r_bi == 10 %}
+                    <td class='third True'>نرمال</td>
+                    {% elif item.para.all.0.opto_hedat_r_bi == None %}
+                    <td class='third none'> ذکر نشده</td>
+                    {% else %}
+                    <td class='third false'> غیر نرمال</td>  
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>بینایی چشم راست با عینک</td>
+                    {% if item.para.all.0.opto_hedat_r_ba %}
+                    <td class='second'>{{ item.para.all.0.opto_hedat_r_ba }}</td>
+                    {% else %}
+                    <td class='second none'>ذکر نشده</td>
+                    {% endif %}
+                    {% if item.para.all.0.opto_hedat_r_status == 'adam_did' %}
+                    <td class='third blue'>عدم دید</td>
+                    {% elif item.para.all.0.opto_hedat_r_status == 'fc' %}
+                    <td class='third blue'>FC</td>
+                    {% elif item.para.all.0.opto_hedat_r_ba == 10 %}
+                    <td class='third True'>نرمال</td>
+                    {% elif item.para.all.0.opto_hedat_r_ba == None %}
+                    <td class='third none'> ذکر نشده</td>
+                    {% else %}
+                    <td class='third false'> غیر نرمال</td>  
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>عکس سینه</td>
+                    <td class='second'>---</td>
+                    {% if item.para.all.0.other_cxr == None %}
+                    <td class='none'>ذکر نشده</td>
+                    {% elif item.para.all.0.other_cxr == 'normal' %}
+                    <td class='blue'>نرمال</td>
+                    {% elif item.para.all.0.other_cxr == 'not_normal' %}
+                    <td class='blue'>غیر نرمال</td>
+                    {% else %}
+                    <td class='none'>ذکر نشده</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>سرب خون</td>
+                    {% if item.experiment.all.0.lead %}
+                    <td class='second'>{{ item.experiment.all.0.lead }}</td>
+                    {% else %}
+                    <td class='none'>ذکر نشده</td>
+                    {% endif %}                    
+                    {% if item.experiment.all.0.lead <= 20 %}
+                    <td class='third True'>نرمال</td>
+                    {% elif item.experiment.all.0.lead > 20 %}
+                    <td class='third false'>غیر نرمال</td>
+                    {% else %}
+                    <td class='third none'>ذکر نشده</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>PSA</td>
+                    {% if item.experiment.all.0.psa %}
+                    <td class='second'>{{ item.experiment.all.0.psa }}</td>
+                    {% else %}
+                    <td class='none'>ذکر نشده</td>
+                    {% endif %}     
+                    {% if item.experiment.all.0.psa == None %}
+                    <td class='third none'>ذکر نشده</td>               
+                    {% elif item.experiment.all.0.psa_status == True %}
+                    <td class='third True'>نرمال</td>
+                    {% else %}
+                    <td class='third false'>غیر نرمال</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>TSH</td>
+                    {% if item.experiment.all.0.tsh %}
+                    <td class='second'>{{ item.experiment.all.0.tsh }}</td>
+                    {% else %}
+                    <td class='none'>ذکر نشده</td>
+                    {% endif %}     
+                    {% if item.experiment.all.0.tsh == None %}
+                    <td class='third none'>ذکر نشده</td>               
+                    {% elif item.experiment.all.0.tsh_status == True %}
+                    <td class='third True'>نرمال</td>
+                    {% else %}
+                    <td class='third false'>غیر نرمال</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>chratinin</td>
+                    {% if item.experiment.all.0.cr %}
+                    <td class='second'>{{ item.experiment.all.0.cr }}</td>
+                    {% else %}
+                    <td class='none'>ذکر نشده</td>
+                    {% endif %}     
+                    {% if item.experiment.all.0.cr == None %}
+                    <td class='third none'>ذکر نشده</td>               
+                    {% elif item.experiment.all.0.cr_status == True %}
+                    <td class='third True'>نرمال</td>
+                    {% else %}
+                    <td class='third false'>غیر نرمال</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>D3</td>
+                    {% if item.experiment.all.0.cr %}
+                    <td class='second'>{{ item.experiment.all.0.d }}</td>
+                    {% else %}
+                    <td class='none'>ذکر نشده</td>
+                    {% endif %}     
+                    {% if item.experiment.all.0.d == None %}
+                    <td class='third none'>ذکر نشده</td>               
+                    {% elif item.experiment.all.0.d_status == True %}
+                    <td class='third True'>نرمال</td>
+                    {% else %}
+                    <td class='third false'>غیر نرمال</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>نوار قلب</td>
+                    <td class='second'>---</td>
+                    {% if item.para.all.0.other_ecg == None %}
+                    <td class='none'>ذکر نشده</td>
+                    {% elif item.para.all.0.other_ecg == 'normal' %}
+                    <td class='blue'>نرمال</td>
+                    {% elif item.para.all.0.other_ecg == 'not_normal' %}
+                    <td class='blue'>غیر نرمال</td>
+                    {% elif item.para.all.0.other_ecg == 'not_ekhtesasi' %}
+                    <td class='blue'>تغییرات غیر اختصاصی</td>
+                    {% else %}
+                    <td class='none'>ذکر نشده</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>وضعیت پرونده</td>
+                    <td class='second'>---</td>
+                    {% if item.final.all.0.belamane == True %}
+                    <td class='third True'>بلامانع</td>
+                    {% elif item.final.all.0.mashrot == True %}
+                    <td class='third blue'>مشروط</td>
+                    {% elif item.final.all.0.rad == True %}
+                    <td class='third false'>رد صلاحیت</td>
+                    {% else %}
+                    <td class='third none'>باز</td>    
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>معاینات غیر نرمال</td>
+                    {% if item.examinations.all.0.not_normals %}
+                    <td class='third blue' colspan=2>{{ item.examinations.all.0.not_normals }}</td>
+                    {% else %}
+                    <td class='third none' colspan=2>ذکر نشده</td>    
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td class='first'>توصیه های پزشکی</td>
+                    {% if item.final.all.0.recommendations %}
+                    <td class='third blue' colspan=2>{{ item.final.all.0.recommendations }}</td>
+                    {% else %}
+                    <td class='third none' colspan=2>ذکر نشده</td>    
+                    {% endif %}
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
+{% endfor %}
+<hr size="5px" width="100%" color="black" class='mt-5'>
+<section>
+    <div class='container mt-5'>
+        <div class='row text-center'>
+            <div class='col'>
+                <a href="{% url 'solo_pdf' %}">pdf</a>
+            </div>
+        </div>
+    </div>
+    <div id="container" dir='ltr' class='mt-5' >
+        <div id="pagination" class = 'row text-center'>
+            {% if solo_page.has_previous %}
+            <a class='blocks' href='?page=1' style='text-decoration: none;color: black;'>اول</a>
+            <a class='blocks' href='?page={{ solo_page.previous_page_number }}' style='text-decoration: none;color: black;'>&laquo;</a>
+            {% endif %}
+            {% for num in nums %}
+            {% if forloop.counter|divisibleby:21 %}
+            </div>
+            <div id="pagination" class="row text-center">
+            {% endif %}
+            <a class='blocks text-center' href='?page={{ forloop.counter }}' style='text-decoration: none;color: black;'>{{ forloop.counter }}</a>    
+            {% endfor %}
+            {% if solo_page.has_next %}
+            <a class='blocks' href='?page={{ solo_page.next_page_number }}' style='text-decoration: none;color: black;'>&raquo;</a>
+            <a class='blocks' href='?page={{ count }}' style='text-decoration: none;color: black;'>آخر</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock content %}

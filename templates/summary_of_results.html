@@ -1,0 +1,294 @@
+{% extends 'article/base.html' %}
+{% load static %}
+{% block content %}
+    <section class="b-green">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col">
+                        خلاصه نتایج
+                    </div>
+                </div>
+            </div>
+    </section>
+    <svg id="wave" style="transform:rotate(180deg); transition: 0.3s" viewBox="0 0 1440 100" version="1.1"
+         xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
+                <stop stop-color="rgba(127, 255, 0, 1)" offset="0%"></stop>
+                <stop stop-color="rgba(127, 255, 0, 1)" offset="100%"></stop>
+            </linearGradient>
+        </defs>
+        <path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)"
+              d="M0,30L80,38.3C160,47,320,63,480,60C640,57,800,33,960,25C1120,17,1280,23,1440,31.7C1600,40,1760,50,1920,51.7C2080,53,2240,47,2400,50C2560,53,2720,67,2880,61.7C3040,57,3200,33,3360,25C3520,17,3680,23,3840,30C4000,37,4160,43,4320,46.7C4480,50,4640,50,4800,55C4960,60,5120,70,5280,68.3C5440,67,5600,53,5760,53.3C5920,53,6080,67,6240,66.7C6400,67,6560,53,6720,55C6880,57,7040,73,7200,66.7C7360,60,7520,30,7680,28.3C7840,27,8000,53,8160,68.3C8320,83,8480,87,8640,88.3C8800,90,8960,90,9120,76.7C9280,63,9440,37,9600,25C9760,13,9920,17,10080,20C10240,23,10400,27,10560,25C10720,23,10880,17,11040,25C11200,33,11360,57,11440,68.3L11520,80L11520,100L11440,100C11360,100,11200,100,11040,100C10880,100,10720,100,10560,100C10400,100,10240,100,10080,100C9920,100,9760,100,9600,100C9440,100,9280,100,9120,100C8960,100,8800,100,8640,100C8480,100,8320,100,8160,100C8000,100,7840,100,7680,100C7520,100,7360,100,7200,100C7040,100,6880,100,6720,100C6560,100,6400,100,6240,100C6080,100,5920,100,5760,100C5600,100,5440,100,5280,100C5120,100,4960,100,4800,100C4640,100,4480,100,4320,100C4160,100,4000,100,3840,100C3680,100,3520,100,3360,100C3200,100,3040,100,2880,100C2720,100,2560,100,2400,100C2240,100,2080,100,1920,100C1760,100,1600,100,1440,100C1280,100,1120,100,960,100C800,100,640,100,480,100C320,100,160,100,80,100L0,100Z"></path>
+    </svg>
+    <section class='container'>
+        <form action='{% url 'addsummary' %}' method='POST'>
+            <div class='row text-center mt-4'>
+                <div class='col'>
+                    {% load crispy_forms_tags %}
+                    {% csrf_token %}
+                    <lable for='name'> نام و نام خانوادگی</lable>
+                    {{ form.name }}
+                </div>
+                <div class="col">
+                    <div class="dropdown">
+                        <lable>کد معاینات</lable>
+                        {{ form.examinations_code }}
+                        <a onclick="myFunction()" class="dropbtn btn btn-success">مشاهده لیست</a>
+                        <div id="myDropdown" class="dropdown-content">
+                            {% for code in code_list %}
+                                <a class='option' style='cursor: default'> {{ code.examinations_code }} </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='row text-center mt-4'>
+                <div class='col'>
+                    <lable for='no'>شماره پرونده</lable>
+                    {{ form.number }}
+                </div>
+                <div class='col'>
+                    {{ form.gender }}
+                </div>
+                <div class='col'>
+                    <lable for='no'>سال تولد</lable>
+                    {{ form.age }}
+                </div>
+                <div class='col'>
+                    <lable for='start'>شروع به کار</lable>
+                    {{ form.start_month }}
+                    <lable>/</lable>
+                    {{ form.start_year }}
+                </div>
+            </div>
+            <hr size="5px" width="100%" color="black">
+            <div class='row text-center mt-4'>
+                <div class='col'>
+                    <lable for='job'>عنوان شغلی</lable>
+                    {{ form.job }}
+                </div>
+                <div class='col'>
+                    <lable for='harm'>عوامل زیان آور</lable>
+                    {{ form.harmful_factors }}
+                </div>
+                <div class='col'>
+                    <label for="code">کد پزشک</label>
+                    {{ form.code }}
+                </div>
+            </div>
+            <hr size="5px" width="100%" color="black">
+            <div class='row text-center mt-4'>
+                <div class='col'>
+                    <lable for='length'>قد</lable>
+                    {{ form.length }}
+                </div>
+                <div class='col'>
+                    <lable for='weight'>وزن</lable>
+                    {{ form.weight }}
+                </div>
+            </div>
+            <div class='row text-center mt-4'>
+                <div class='col'>
+                    <lable for='blood_1'>قند خون</lable>
+                    {{ form.blood_sugar }}
+                </div>
+                <div class='col'>
+                    <lable for='blood_2'>فشار خون</lable>
+                    {{ form.blood_pressure }}
+                </div>
+                <div class='col'>
+                    <lable for='cols'>کلسترول</lable>
+                    {{ form.cholesterol }}
+                </div>
+                <div class='col'>
+                    <lable for='tri'>تری گلیسیرید</lable>
+                    {{ form.triglyceride }}
+                </div>
+                <div class='col'>
+                    <lable for='blood_3'>سرب خون</lable>
+                    {{ form.blood_lead }}
+                </div>
+                <div class='col'>
+                    <lable for='cratin'>کراتینین</lable>
+                    {{ form.chratinin }}
+                </div>
+            </div>
+            <div class='row text-center mt-4'>
+                <div class='col'>
+                    <lable for='ALT'>ALT</lable>
+                    {{ form.ALT }}
+                </div>
+                <div class='col'>
+                    <lable for='AST'>AST</lable>
+                    {{ form.AST }}
+                </div>
+                <div class='col'>
+                    <lable for='PSA'>PSA</lable>
+                    {{ form.PSA }}
+                </div>
+                <div class='col'>
+                    <lable for='TSH'>TSH</lable>
+                    {{ form.TSH }}
+                </div>
+                <div class='col'>
+                    <lable for='D3'>ویتامین D3</lable>
+                    {{ form.D3 }}
+                </div>
+            </div>
+            <hr size="5px" width="100%" color="black">
+            <div class='row text-center mt-4'>
+                <div class='col'>
+                    <lable for='urine'>آزمایش ادرار</lable>
+                    {{ form.urine }}
+                </div>
+                <div class='col'>
+                    <lable for='breath'>تست تنفس</lable>
+                    {{ form.breathing_test }}
+                </div>
+            </div>
+            <div class='row text-center mt-4'>
+                <div class='col'>
+                    <lable for='breast'>عکس قفسه سینه</lable>
+                    {{ form.breast_photo }}
+                </div>
+                <div class='col'>
+                    <lable for='heart'>نوار قلب</lable>
+                    {{ form.heart }}
+                </div>
+            </div>
+            <div class='row text-center mt-4'>
+                <div class='col'>
+                    <lable for='r-eye'>مقدار بینایی چشم راست</lable>
+                    {{ form.right_eye_vision }}
+                </div>
+                <div class='col'>
+                    <lable for='l-eye'>مقدار بینایی چشم چپ</lable>
+                    {{ form.left_eye_vision }}
+                </div>
+            </div>
+            <div class='row text-center mt-4'>
+                <div class='col'>
+                    <lable for='r-eye-g'>مقدار بینایی چشم راست با عینک</lable>
+                    {{ form.right_eye_vision_with_glasses }}
+                </div>
+                <div class='col'>
+                    <lable for='l-eye-g'>مقدار بینایی چشم چپ با عینک</lable>
+                    {{ form.left_eye_vision_with_glasses }}
+                </div>
+            </div>
+            <div class='row text-center mt-4'>
+                <div class='col'>
+                    <lable for='color'>دید رنگ</lable>
+                    {{ form.color_vision }}
+                </div>
+                <div class='col'>
+                    <lable for='view'>دید میدان</lable>
+                    {{ form.field_of_veiw }}
+                </div>
+                <div class='col'>
+                    <lable for='depth'>دید عمق</lable>
+                    {{ form.depth_vision }}
+                </div>
+            </div>
+            <div class='row text-center mt-4'>
+                <div class='col'>
+                    <lable for='r-ear'>وضعیت شنوایی گوش راست</lable>
+                    {{ form.right_ear_hearing }}
+                </div>
+                <div class='col'>
+                    <lable for='l-ear'>وضعیت شنوایی گوش چپ</lable>
+                    {{ form.left_ear_hearing }}
+                </div>
+            </div>
+            <div>
+                <hr size="5px" width="100%" color="black">
+            </div>
+            <div class='row text-center mt-4'>
+                <div class='col'>
+                    <lable for='problem'>مشکل مشاهده شده</lable>
+                    {{ form.problem }}
+                </div>
+                <div class='col'>
+                    <lable for='advice'>توصیه ها</lable>
+                    {{ form.recommendations }}
+                </div>
+            </div>
+            <div class='row text-center mt-4'>
+                <div class='col'>
+                    <lable for='p-work'>ارتباط مشکل احتمالی با شغل</lable>
+                    {{ form.problems_with_the_persons_job }}
+                </div>
+                <div class='col'>
+                    <lable for='specialist'>ارجاع به متخصص</lable>
+                    {{ form.refer_to_specialist }}
+                </div>
+            </div>
+            <div class='row text-center mt-4'>
+                <div class='col'>
+                    <lable for='final'>نظریه نهایی پزشک</lable>
+                    {{ form.final_theory }}
+                </div>
+                <div class='col'>
+                    <lable for='health'>اقدامات کارشناس بهداشت حرفه ای</lable>
+                    {{ form.occupational_actions }}
+                </div>
+            </div>
+            <div class='row text-center mt-4'>
+                <div class='col'>
+                    <lable for='reason'>علت باز بودن پرونده</lable>
+                    {{ form.reson_for_opening_the_case }}
+                </div>
+                <div class='col'>
+                    <lable for='j-code'>کد بیماری شغلی</lable>
+                    {{ form.job_code }}
+                </div>
+            </div>
+            <div class='row text-center mt-4'>
+                <div class='col'>
+                    <input type="submit" value="ذخیره و ثبت جدید">
+                </div>
+            </div>
+        </form>
+    </section>
+    <script>
+        /* When the user clicks on the button,
+    toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        function filterFunction() {
+            var input, filter, ul, li, a, i;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            div = document.getElementById("myDropdown");
+            a = div.getElementsByTagName("a");
+            for (i = 0; i < a.length; i++) {
+                txtValue = a[i].textContent || a[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    a[i].style.display = "";
+                } else {
+                    a[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+    <script>
+        function val() {
+          document.getElementById("myInput").value = document.getElementById("selectingPan").value;
+          }
+        function update(entry) {
+          document.getElementById("myInput").value = entry.innerText;
+        }
+        let optionss = document.getElementsByClassName("option");
+    </script>
+    </script>
+    <script>
+        document.getElementById("myInput").addEventListener("focus", function() {document.getElementsByClassName("container")[0].style.display = "block";})
+        document.getElementById("myInput").addEventListener("blur", function() {setTimeout(function(){document.getElementsByClassName("container")[0].style.display = "none";}, 500)})
+        for (let i = 0; i < optionss.length; i++) {
+        optionss[i].addEventListener("click", function() {update(optionss[i])}) ;
+        }
+    </script>
+{% endblock content %}
