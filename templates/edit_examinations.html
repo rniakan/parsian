@@ -113,10 +113,15 @@
 <section class='container mt-4'>
     <form action='' method='POST'>
         <div class='row text-center mb-4'>
-            <div class='col'>
+            <div class="col">
+                <lable>کد دوره معاینات</lable>
                 {% csrf_token %}
-                <lable>کد دوره معاینات:</lable>
                 {{ personal_species.examinations_code }}
+                <datalist id='examinations_code'>
+                    {% for item in code_list %}
+                    <option value='{{ item.examinations_code }}'></option>
+                    {% endfor %}
+                </datalist>
             </div>
         </div>
         <div class='row text-center mb-4'>
