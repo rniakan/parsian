@@ -28,9 +28,13 @@ xmlns="http://www.w3.org/2000/svg">
                 <a href='{% url 'submit_company' %}' class="nav-link text-dark text-center green-page">قبل</a>
             </div>
             <div class='col'>
-                {% csrf_token %}
-                <lable> کارخانه/کارگاه/شرکت</lable>
+                <lable>شرکت:</lable>
                 {{ form.company }}
+                <datalist id='company'>
+                    {% for item in inputlist %}
+                    <option value='{{ item.name }}'><option>
+                    {% endfor %}
+                </datalist>
             </div>
             <div class='col'>
                 <lable>پزشک طب کار</lable>

@@ -22,12 +22,12 @@ class ExaminationsCompanyChoiceField(forms.ModelChoiceField):
          return obj.name
 
 class submit_course_form(forms.ModelForm):
-    company : ExaminationsCompanyChoiceField(queryset=Company.objects.all())
     class Meta:
         model = ExaminationsCourse
         fields = '__all__'
         widgets={
         'year' : forms.NumberInput(attrs={'autocomplete': 'off','min'  : '1300','max' : '1500'}),
+        'company' : forms.TextInput(attrs={'autocomplete': 'off' , 'list' : 'company'}),
         'doctor' : forms.TextInput(attrs={'autocomplete': 'off' }),
         'employer' : forms.TextInput(attrs={'autocomplete': 'off' }),
         'examinations_code' : forms.TextInput(attrs={'autocomplete': 'off' })}
