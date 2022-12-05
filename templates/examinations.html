@@ -32,7 +32,7 @@
             <div class="col">
                 <lable>کد دوره معاینات</lable>
                 {% csrf_token %}
-                {{ form.examinations_code }}
+                {{ personal_species.examinations_code }}
                 <datalist id='examinations_code'>
                     {% for item in code_list %}
                     <option value='{{ item.examinations_code }}'></option>
