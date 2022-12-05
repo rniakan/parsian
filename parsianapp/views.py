@@ -1075,6 +1075,7 @@ def addorder_view(request):
 
 @login_required(login_url='login')
 def examinations_view(request):
+    code_list=ExaminationsCourse.objects.order_by('id')
     personal_species=personal_species_form()
     job_history=job_history_form()
     assessment=assessment_form()
@@ -1084,7 +1085,7 @@ def examinations_view(request):
     para_clinic=para_clinic_form()
     consulting=consulting_form()
     final_theory=final_theory_form()
-    context={'personal_species' : personal_species , 'job_history' : job_history , 'assessment' : assessment, 'personal_history' : personal_history, 'examinations' : examinations, 'experiments' : experiments, 'para_clinic' : para_clinic, 'consulting' : consulting , 'final_theory' : final_theory }
+    context={'code_list':code_list,'personal_species' : personal_species , 'job_history' : job_history , 'assessment' : assessment, 'personal_history' : personal_history, 'examinations' : examinations, 'experiments' : experiments, 'para_clinic' : para_clinic, 'consulting' : consulting , 'final_theory' : final_theory }
     return render(request, 'examinations.html',context)
 
 @require_POST
