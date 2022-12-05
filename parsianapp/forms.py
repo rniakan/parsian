@@ -54,9 +54,6 @@ class disease_form(forms.ModelForm):
         ,'e_examinations_code' : forms.TextInput(attrs={'autocomplete': 'off','list':'examinations_code'})
         }  
 
-class ExaminationsCourseChoiceField(forms.ModelChoiceField):
-    def label_from_instance(self, obj):
-         return obj.examinations_code
 
 class personal_species_form(forms.ModelForm):
     class Meta:
@@ -64,11 +61,11 @@ class personal_species_form(forms.ModelForm):
         fields='__all__' 
         widgets={
         'species_date_year' : forms.NumberInput(attrs={'class':'date_year','autocomplete': 'off'}),
+        'examinations_code' : forms.TextInput(attrs={'class':'text','autocomplete': 'off',"required": 'True','list':'examinations_code'}),
         'examinations_type' : forms.Select(attrs={'class':'text','autocomplete': 'off'}),
         'profil_number' : forms.NumberInput(attrs={'class':'s_box','autocomplete': 'off'}),
         'employment_number' : forms.NumberInput(attrs={'class':'s_box','autocomplete': 'off'}),
         'name' : forms.TextInput(attrs={'class':'text','autocomplete': 'off',"required": 'True'}),
-        'examinations_code' : forms.TextInput(attrs={'autocomplete': 'off' , 'list' : 'examinations_code'}),
         'fathers_name' : forms.TextInput(attrs={'class':'text','autocomplete': 'off'}),
         'gender' : forms.Select(attrs={'class':'s_box','autocomplete': 'off','id':'select',"required": 'True'}),
         'marriage_status' : forms.Select(attrs={'class':'box','autocomplete': 'off'}),
