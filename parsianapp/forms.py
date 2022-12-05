@@ -27,7 +27,7 @@ class submit_course_form(forms.ModelForm):
         model = ExaminationsCourse
         fields = '__all__'
         widgets={
-        'year' : forms.TextInput(attrs={'autocomplete': 'off' }),
+        'year' : forms.TextInput(attrs={'autocomplete': 'off','min'  : '1300','max' : '1500'}),
         'doctor' : forms.TextInput(attrs={'autocomplete': 'off' }),
         'employer' : forms.TextInput(attrs={'autocomplete': 'off' }),
         'examinations_code' : forms.TextInput(attrs={'autocomplete': 'off' })}
