@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row text-center">
             <div class="col">
-                    ثبت دوره
+                    ثبت شرکت
             </div>
         </div>
     </div>
@@ -28,14 +28,9 @@ xmlns="http://www.w3.org/2000/svg">
                 <a href='{% url 'submit_company' %}' class="nav-link text-dark text-center green-page">قبل</a>
             </div>
             <div class='col'>
-                <lable>شرکت:</lable>
                 {% csrf_token %}
+                <lable> کارخانه/کارگاه/شرکت</lable>
                 {{ form.company }}
-                <datalist id='company'>
-                    {% for item in inputlist %}
-                    <option value='{{ item.name }}'><option>
-                    {% endfor %}
-                </datalist>
             </div>
             <div class='col'>
                 <lable>پزشک طب کار</lable>
