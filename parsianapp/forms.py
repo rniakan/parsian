@@ -68,7 +68,7 @@ class personal_species_form(forms.ModelForm):
         'profil_number' : forms.NumberInput(attrs={'class':'s_box','autocomplete': 'off'}),
         'employment_number' : forms.NumberInput(attrs={'class':'s_box','autocomplete': 'off'}),
         'name' : forms.TextInput(attrs={'class':'text','autocomplete': 'off',"required": 'True'}),
-        'examinations_code' : forms.TextInput(attrs={'class':'text','autocomplete': 'off',"required": 'True','list' : 'examinations_code'}),
+        'examinations_code' : forms.TextInput(attrs={'autocomplete': 'off' , 'list' : 'examinations_code'}),
         'fathers_name' : forms.TextInput(attrs={'class':'text','autocomplete': 'off'}),
         'gender' : forms.Select(attrs={'class':'s_box','autocomplete': 'off','id':'select',"required": 'True'}),
         'marriage_status' : forms.Select(attrs={'class':'box','autocomplete': 'off'}),
