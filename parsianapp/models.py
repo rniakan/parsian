@@ -60,7 +60,7 @@ class Personal_Species_Model(models.Model):
     marriage_status = models.CharField(default='mojarad', choices=marriage_status_CHOICES,  max_length=250, null=True, blank=True)
     children = models.IntegerField(null=True, blank=True)
     age = models.IntegerField(default=None, null=True, blank=True)
-    personal_code = models.BigIntegerField(null=True, blank=True,validators=[MinValueValidator(1), MaxValueValidator(100)])
+    personal_code = models.BigIntegerField(null=True, blank=True)
     military_status_CHOICES = [('khedmat_karde', 'خدمت کرده'), ('moaf', 'معاف'), ('khedmat_nakarde', 'خدمت نکرده')]
     military_status = models.CharField(default='khedmat_karde', choices=military_status_CHOICES, max_length=250, null=True, blank=True)
     raste = models.CharField(max_length=250, null=True, blank=True)
