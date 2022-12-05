@@ -29,6 +29,7 @@ xmlns="http://www.w3.org/2000/svg">
             </div>
             <div class='col'>
                 <lable>شرکت:</lable>
+                {% csrf_token %}
                 {{ form.company }}
                 <datalist id='company'>
                     {% for item in inputlist %}
