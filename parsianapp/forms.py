@@ -71,7 +71,7 @@ class personal_species_form(forms.ModelForm):
         'marriage_status' : forms.Select(attrs={'class':'box','autocomplete': 'off'}),
         'children' : forms.NumberInput(attrs={'class':'s_box','autocomplete': 'off'}),
         'age' : forms.NumberInput(attrs={'class':'box','autocomplete': 'off',"required": 'True'}),
-        'personal_code' : forms.NumberInput(attrs={'class':'personal_w','autocomplete': 'off'}),
+        'personal_code' : forms.TextInput(attrs={'class':'personal_w','autocomplete': 'off'}),
         'military_status' : forms.Select(attrs={'class':'text','autocomplete': 'off'}),
         'raste' : forms.TextInput(attrs={'class':'text','autocomplete': 'off'}),
         'medical_exemption' : forms.Select(attrs={'class':'text','autocomplete': 'off'}),
