@@ -36,7 +36,7 @@
                     {{ form.company }}
                     <datalist id='company'>
                         {% for result in company %}
-                            <option>{{ result.name }}</option>
+                            <option value="{{ result.id }}">{{ result.name }}</option>
                         {% endfor %}
                     </datalist>
                 </div>

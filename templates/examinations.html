@@ -33,11 +33,11 @@
                 </div>
                 <div class='col'>
                     <lable>کد دوره معاینات:</lable>
-{#                {{ personal_species.examinations_code }}#}
-                    {{ personal_species.ExaminationsCourseChoiceField }}
+                {{ personal_species.examinations_code }}
+{#                    {{ personal_species.ExaminationsCourseChoiceField }}#}
                     <datalist id='examinations_code'>
-                        {% for item in ExaminationsCourse %}
-                            <option value='{{ item.examinations_code }}'></option>
+                        {% for result in ExaminationsCourse %}
+                            <option value="{{ result.id }}">{{ result.examinations_code }}</option>
                         {% endfor %}
                     </datalist>
                 </div>
