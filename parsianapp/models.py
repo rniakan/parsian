@@ -65,7 +65,7 @@ class Personal_Species_Model(models.Model):
                                        blank=True)
     children = models.IntegerField(null=True, blank=True)
     age = models.IntegerField(default=None, null=True, blank=True)
-    personal_code = models.IntegerField(null=True, blank=True)
+    personal_code = models.CharField(max_length=250, null=True, blank=True)
     military_status_CHOICES = [('khedmat_karde', 'خدمت کرده'), ('moaf', 'معاف'), ('khedmat_nakarde', 'خدمت نکرده')]
     military_status = models.CharField(default='khedmat_karde', choices=military_status_CHOICES, max_length=250,
                                        null=True, blank=True)
